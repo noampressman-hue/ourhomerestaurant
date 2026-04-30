@@ -443,6 +443,59 @@
             background: linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.3), transparent);
             margin: 24px 0;
         }
+
+        /* Pixel Airplane Animation */
+        @keyframes flyLeftRight {
+            0% {
+                left: -100px;
+                transform: scaleX(1);
+            }
+            45% {
+                left: calc(100% + 100px);
+                transform: scaleX(1);
+            }
+            50% {
+                left: calc(100% + 100px);
+                transform: scaleX(-1);
+            }
+            95% {
+                left: -100px;
+                transform: scaleX(-1);
+            }
+            100% {
+                left: -100px;
+                transform: scaleX(1);
+            }
+        }
+
+        .animate-fly-left-right {
+            animation: flyLeftRight 20s linear infinite;
+        }
+
+        .pixel-airplane {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .news-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(196, 30, 58, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .news-card:hover::before {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-b from-home-cream via-home-cream to-white text-home-dark font-sans antialiased selection:bg-spanish-red selection:text-white overflow-hidden">
@@ -465,6 +518,7 @@
                 <a href="#gallery" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Галерея</a>
                 <a href="#tradition" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Традиции</a>
                 <a href="#menu" class="text-sm font-medium text-spanish-red hover:text-wine-red transition-colors">Меню</a>
+                <a href="#news" class="text-sm font-medium text-spanish-red hover:text-wine-red transition-colors">Новости</a>
             </div>
         </div>
     </nav>
@@ -787,6 +841,7 @@
                         <li><a href="#gallery" class="hover:text-spanish-red transition-colors">Галерея</a></li>
                         <li><a href="#tradition" class="hover:text-spanish-red transition-colors">Традиции</a></li>
                         <li><a href="#menu" class="hover:text-spanish-red transition-colors">Меню</a></li>
+                        <li><a href="#news" class="hover:text-spanish-red transition-colors">Новости</a></li>
                     </ul>
                 </div>
                 <div>
@@ -815,6 +870,120 @@
         </div>
     </footer>
 
+    <!-- News Section -->
+    <section id="news" class="py-20 bg-gradient-to-b from-home-cream to-white relative overflow-hidden">
+        <!-- Animated Pixel Airplane -->
+        <div class="airplane-container absolute top-1/3 left-0 w-full h-32 pointer-events-none z-10">
+            <div class="pixel-airplane absolute animate-fly-left-right">
+                <svg width="80" height="40" viewBox="0 0 80 40" class="drop-shadow-lg">
+                    <!-- Pixel Art Airplane -->
+                    <rect x="0" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="8" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="16" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="24" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="32" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="40" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="48" y="16" width="8" height="8" fill="#C41E3A"/>
+                    <rect x="56" y="16" width="8" height="8" fill="#C41E3A"/>
+                    
+                    <rect x="24" y="8" width="8" height="8" fill="#D4AF37"/>
+                    <rect x="32" y="8" width="8" height="8" fill="#D4AF37"/>
+                    <rect x="40" y="8" width="8" height="8" fill="#D4AF37"/>
+                    
+                    <rect x="32" y="24" width="8" height="8" fill="#2C241F"/>
+                    <rect x="40" y="24" width="8" height="8" fill="#2C241F"/>
+                    
+                    <rect x="64" y="12" width="8" height="4" fill="#722F37"/>
+                    <rect x="64" y="24" width="8" height="4" fill="#722F37"/>
+                    
+                    <rect x="72" y="14" width="4" height="4" fill="#FDFBF7"/>
+                    <rect x="72" y="22" width="4" height="4" fill="#FDFBF7"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-20">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl font-bold text-home-dark mb-4">Новости</h2>
+                <div class="w-24 h-1 bg-spanish-red mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- News Card -->
+                <div class="news-card bg-gradient-to-br from-spanish-red/10 to-wine-red/10 rounded-2xl p-8 border border-spanish-red/20 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-spanish-red text-white text-xs font-semibold rounded-full uppercase tracking-wide animate-pulse">
+                            Новая тема
+                        </span>
+                        <span class="text-home-brown text-sm font-medium">С 15 декабря</span>
+                    </div>
+                    
+                    <h3 class="font-serif text-3xl font-bold text-home-dark mb-4">Греческая Неделя</h3>
+                    
+                    <p class="text-home-brown leading-relaxed mb-6">
+                        Погрузитесь в атмосферу средиземноморского гостеприимства! 
+                        Насладитесь традиционными греческими блюдами, приготовленными с любовью 
+                        и использованием authentic ингредиентов прямо из Греции.
+                    </p>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-3 text-home-dark">
+                            <svg class="w-5 h-5 text-spanish-red flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Мусака и сувлаки от шефа</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-home-dark">
+                            <svg class="w-5 h-5 text-spanish-red flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Греческие вина и узо</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-home-dark">
+                            <svg class="w-5 h-5 text-spanish-red flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Живая музыка по вечерам</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-home-dark">
+                            <svg class="w-5 h-5 text-spanish-red flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Средиземноморский декор</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="openBookingModal()" class="w-full py-4 bg-gradient-to-r from-spanish-red to-wine-red text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 group">
+                        <span>Забронировать столик</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Image Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400&h=500&fit=crop" alt="Греческая кухня" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcf8?w=400&h=300&fit=crop" alt="Греческий салат" class="w-full h-48 object-cover">
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400&h=300&fit=crop" alt="Санторини" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=400&h=500&fit=crop" alt="Греческое вино" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Booking Modal -->
     <div id="bookingModal" class="booking-modal-overlay">
         <div class="booking-modal">
@@ -826,7 +995,7 @@
             
             <div id="bookingFormContainer">
                 <h3 class="booking-title">Забронировать столик</h3>
-                <p class="booking-subtitle">Испанская неделя ждёт вас</p>
+                <p class="booking-subtitle">Греческая неделя ждёт вас</p>
                 
                 <form id="bookingForm" onsubmit="handleBooking(event)">
                     <div class="form-group">
@@ -1016,6 +1185,19 @@
 
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Animate news section images on scroll
+        const newsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.news-card, .rounded-2xl.overflow-hidden').forEach(el => {
+            newsObserver.observe(el);
         });
     </script>
 </body>
