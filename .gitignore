@@ -1,0 +1,39 @@
+```
+# Source files
+*.pyc
+__pycache__/
+
+# Build artifacts
+dist/
+build/
+*.o
+*.obj
+*.out
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+.env
+.env.*
+.env.local
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# System
+.DS_Store
+Thumbs.db
+```

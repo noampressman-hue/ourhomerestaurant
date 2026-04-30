@@ -163,12 +163,285 @@
             color: #fff;
             letter-spacing: 0.08em;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
         .entry-button:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
             background: linear-gradient(135deg, rgba(255,255,255,0.26), rgba(255,255,255,0.09));
+        }
+
+        /* Booking Modal Styles */
+        .booking-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .booking-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-modal {
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.98) 0%, rgba(248, 245, 240, 0.95) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 520px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .booking-modal-overlay.active .booking-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .booking-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(196, 30, 58, 0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #C41E3A;
+        }
+
+        .booking-modal-close:hover {
+            background: rgba(196, 30, 58, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .booking-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2C241F;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .booking-subtitle {
+            text-align: center;
+            color: #8B7355;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #8B7355;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(139, 115, 85, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #C41E3A;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(139, 115, 85, 0.4);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(139, 115, 85, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #C41E3A;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .booking-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #C41E3A 0%, #722F37 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .booking-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.4);
+        }
+
+        .booking-submit:hover::before {
+            left: 100%;
+        }
+
+        .booking-submit:active {
+            transform: translateY(-1px);
+        }
+
+        .success-animation {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes successPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success-checkmark svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.4s 0.2s forwards ease;
+        }
+
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .success-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #2C241F;
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            color: #8B7355;
+            line-height: 1.6;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            color: rgba(139, 115, 85, 0.4);
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        .form-input:focus + .input-icon {
+            color: #C41E3A;
+        }
+
+        .decorative-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.3), transparent);
+            margin: 24px 0;
         }
     </style>
 </head>
@@ -542,6 +815,118 @@
         </div>
     </footer>
 
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal-overlay">
+        <div class="booking-modal">
+            <button class="booking-modal-close" onclick="closeBookingModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                </svg>
+            </button>
+            
+            <div id="bookingFormContainer">
+                <h3 class="booking-title">Забронировать столик</h3>
+                <p class="booking-subtitle">Испанская неделя ждёт вас</p>
+                
+                <form id="bookingForm" onsubmit="handleBooking(event)">
+                    <div class="form-group">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" class="form-input" placeholder="Как к вам обращаться?" required>
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Телефон</label>
+                            <input type="tel" class="form-input" placeholder="+7 (___) ___-__-__" required>
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Гостей</label>
+                            <select class="form-select" required>
+                                <option value="">Выбрать</option>
+                                <option value="1">1 персона</option>
+                                <option value="2">2 персоны</option>
+                                <option value="3">3 персоны</option>
+                                <option value="4">4 персоны</option>
+                                <option value="5+">5+ персон</option>
+                            </select>
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Дата</label>
+                            <input type="date" class="form-input" required>
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Время</label>
+                            <select class="form-select" required>
+                                <option value="">Выбрать</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
+                                <option value="19:00">19:00</option>
+                                <option value="20:00">20:00</option>
+                                <option value="21:00">21:00</option>
+                                <option value="22:00">22:00</option>
+                            </select>
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Пожелания</label>
+                        <input type="text" class="form-input" placeholder="Особые предпочтения или повод">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                    </div>
+                    
+                    <div class="decorative-line"></div>
+                    
+                    <button type="submit" class="booking-submit">
+                        Подтвердить бронирование
+                    </button>
+                </form>
+            </div>
+            
+            <div id="bookingSuccess" class="success-animation">
+                <div class="success-checkmark">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h3 class="success-title">Бронь подтверждена!</h3>
+                <p class="success-message">
+                    Мы ждём вас в нашем доме.<br>
+                    Скоро мы свяжемся с вами для подтверждения деталей.
+                </p>
+            </div>
+        </div>
+    </div>
+
     </div>
 
     <script>
@@ -553,6 +938,55 @@
             entryGate.classList.add('gate-hidden');
             siteContent.classList.remove('opacity-0', 'pointer-events-none', 'select-none');
             document.body.classList.remove('overflow-hidden');
+            
+            // Open booking modal after a short delay
+            setTimeout(() => {
+                openBookingModal();
+            }, 600);
+        });
+
+        // Booking Modal Functions
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleBooking(event) {
+            event.preventDefault();
+            
+            // Hide form and show success animation
+            document.getElementById('bookingFormContainer').style.display = 'none';
+            document.getElementById('bookingSuccess').style.display = 'block';
+            
+            // Close modal after success message is shown
+            setTimeout(() => {
+                closeBookingModal();
+                // Reset form for next time
+                setTimeout(() => {
+                    document.getElementById('bookingFormContainer').style.display = 'block';
+                    document.getElementById('bookingSuccess').style.display = 'none';
+                    document.getElementById('bookingForm').reset();
+                }, 500);
+            }, 3000);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBookingModal();
+            }
         });
 
         // Navbar scroll effect
