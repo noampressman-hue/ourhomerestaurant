@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш дом. Здесь начинаются традиции.</title>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; }
+        img, video, svg { display: block; max-width: 100%; }
+        button { font: inherit; cursor: pointer; }
+        a { color: inherit; text-decoration: none; }
+        section, header, footer { scroll-margin-top: 88px; }
+
+        .fixed { position: fixed; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .inset-0 { inset: 0; }
+        .-inset-6 { inset: -1.5rem; }
+        .top-0 { top: 0; }
+        .left-0 { left: 0; }
+        .right-0 { right: 0; }
+        .bottom-0 { bottom: 0; }
+        .bottom-5 { bottom: 1.25rem; }
+        .left-1\/2 { left: 50%; }
+        .z-10 { z-index: 10; }
+        .z-50 { z-index: 50; }
+
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 0.75rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-5 { margin-top: 1.25rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-5 { margin-bottom: 1.25rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mb-14 { margin-bottom: 3.5rem; }
+        .mb-16 { margin-bottom: 4rem; }
+        .pt-4 { padding-top: 1rem; }
+        .pt-8 { padding-top: 2rem; }
+        .pt-12 { padding-top: 3rem; }
+        .pt-20 { padding-top: 5rem; }
+        .pb-6 { padding-bottom: 1.5rem; }
+        .p-5 { padding: 1.25rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+        .py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+
+        .max-w-lg { max-width: 32rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .max-w-4xl { max-width: 56rem; }
+        .max-w-6xl { max-width: 72rem; }
+        .max-w-7xl { max-width: 80rem; }
+        .max-w-\[18\.5rem\] { max-width: 18.5rem; }
+        .w-full { width: 100%; }
+        .w-2 { width: 0.5rem; }
+        .w-5 { width: 1.25rem; }
+        .w-6 { width: 1.5rem; }
+        .w-10 { width: 2.5rem; }
+        .w-11 { width: 2.75rem; }
+        .w-16 { width: 4rem; }
+        .w-20 { width: 5rem; }
+        .w-96 { width: 24rem; }
+        .h-full { height: 100%; }
+        .h-px { height: 1px; }
+        .h-1 { height: 0.25rem; }
+        .h-2 { height: 0.5rem; }
+        .h-5 { height: 1.25rem; }
+        .h-6 { height: 1.5rem; }
+        .h-10 { height: 2.5rem; }
+        .h-11 { height: 2.75rem; }
+        .h-20 { height: 5rem; }
+        .h-80 { height: 20rem; }
+        .h-96 { height: 24rem; }
+        .h-\[460px\] { height: 460px; }
+        .min-h-screen { min-height: 100vh; }
+
+        .grid { display: grid; }
+        .flex { display: flex; }
+        .inline-flex { display: inline-flex; }
+        .inline-block { display: inline-block; }
+        .hidden { display: none; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .place-items-center { place-items: center; }
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .gap-10 { gap: 2.5rem; }
+        .gap-12 { gap: 3rem; }
+        .gap-16 { gap: 4rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .space-y-8 > * + * { margin-top: 2rem; }
+
+        .order-1 { order: 1; }
+        .order-2 { order: 2; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-visible { overflow: visible; }
+        .overflow-x-hidden { overflow-x: hidden; }
+        .object-cover { object-fit: cover; }
+        .object-center { object-position: center; }
+
+        .font-sans { font-family: "Segoe UI", Arial, sans-serif; }
+        .font-serif { font-family: Georgia, "Times New Roman", serif; }
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .font-light { font-weight: 300; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        .italic { font-style: italic; }
+        .uppercase { text-transform: uppercase; }
+        .text-center { text-align: center; }
+        .leading-\[1\.1\] { line-height: 1.1; }
+        .leading-relaxed { line-height: 1.625; }
+        .leading-snug { line-height: 1.375; }
+        .tracking-tight { letter-spacing: -0.025em; }
+        .tracking-wide { letter-spacing: 0.025em; }
+        .tracking-widest { letter-spacing: 0.1em; }
+
+        .text-white { color: #fff; }
+        .text-white\/80 { color: rgba(255,255,255,0.8); }
+        .text-home-dark { color: #241D18; }
+        .text-home-brown { color: #7B6650; }
+        .text-home-warm { color: #E6CFA8; }
+        .text-spanish-red { color: #B3262F; }
+        .text-wine-red { color: #6E2430; }
+        .text-olive { color: #61714B; }
+        .text-gray-300 { color: #d1d5db; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-600 { color: #4b5563; }
+
+        .bg-white { background: #fff; }
+        .bg-black { background: #000; }
+        .bg-home-cream { background: #FAF6EE; }
+        .bg-home-dark { background: #241D18; }
+        .bg-spanish-red { background: #B3262F; }
+        .bg-spanish-gold { background: #C9972B; }
+        .bg-spanish-red\/10 { background: rgba(179,38,47,0.1); }
+        .bg-home-cream\/10 { background: rgba(250,246,238,0.1); }
+        .bg-white\/5 { background: rgba(255,255,255,0.05); }
+        .bg-white\/10 { background: rgba(255,255,255,0.1); }
+        .bg-white\/60 { background: rgba(255,255,255,0.6); }
+        .bg-white\/80 { background: rgba(255,255,255,0.8); }
+        .bg-white\/90 { background: rgba(255,255,255,0.9); }
+        .bg-gradient-to-b { background-image: linear-gradient(to bottom, #FAF6EE, #FAF6EE, #fff); }
+        .bg-gradient-to-r { background-image: linear-gradient(to right, rgba(179,38,47,0.2), rgba(201,151,43,0.2)); }
+        .bg-gradient-to-br { background-image: linear-gradient(to bottom right, rgba(250,246,238,0.3), rgba(250,246,238,0.1), rgba(179,38,47,0.1)); }
+
+        .border { border: 1px solid rgba(123,102,80,0.16); }
+        .border-2 { border-width: 2px; }
+        .border-t { border-top: 1px solid rgba(255,255,255,0.1); }
+        .border-dashed { border-style: dashed; }
+        .border-home-brown { border-color: #7B6650; }
+        .border-home-brown\/15 { border-color: rgba(123,102,80,0.15); }
+        .border-home-brown\/20 { border-color: rgba(123,102,80,0.2); }
+        .border-home-warm\/20 { border-color: rgba(230,207,168,0.2); }
+        .border-home-warm\/25 { border-color: rgba(230,207,168,0.25); }
+        .border-spanish-red\/25 { border-color: rgba(179,38,47,0.25); }
+        .border-white\/10 { border-color: rgba(255,255,255,0.1); }
+        .rounded-full { border-radius: 9999px; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-3xl { border-radius: 1.5rem; }
+
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .backdrop-blur-sm { backdrop-filter: blur(4px); }
+        .backdrop-blur-md { backdrop-filter: blur(12px); }
+        .blur-2xl { filter: blur(40px); }
+        .blur-3xl { filter: blur(64px); }
+        .opacity-10 { opacity: 0.1; }
+        .opacity-50 { opacity: 0.5; }
+
+        .transform { transform: translateZ(0); }
+        .rotate-1 { transform: rotate(1deg); }
+        .-translate-x-1\/2 { transform: translateX(-50%); }
+        .-translate-y-1\/2 { transform: translateY(-50%); }
+        .translate-x-1\/2 { transform: translateX(50%); }
+        .translate-y-1\/2 { transform: translateY(50%); }
+        .transition-all { transition: all 0.3s ease; }
+        .transition-colors { transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+        .transition-transform { transition: transform 0.3s ease; }
+        .duration-300 { transition-duration: 0.3s; }
+        .duration-500 { transition-duration: 0.5s; }
+        .hover\:-translate-y-1:hover { transform: translateY(-0.25rem); }
+        .hover\:scale-105:hover { transform: scale(1.05); }
+        .hover\:rotate-0:hover { transform: rotate(0deg); }
+        .hover\:bg-spanish-red:hover { background: #B3262F; }
+        .hover\:bg-wine-red:hover { background: #6E2430; }
+        .hover\:border-spanish-red:hover { border-color: #B3262F; }
+        .hover\:text-home-dark:hover { color: #241D18; }
+        .hover\:text-spanish-red:hover { color: #B3262F; }
+        .hover\:text-wine-red:hover { color: #6E2430; }
+        .hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); }
+        .group:hover .group-hover\:translate-x-2 { transform: translateX(0.5rem); }
+        .group:hover .group-hover\:scale-\[1\.03\] { transform: scale(1.03); }
+
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-pulse { animation: pulseSoft 2s ease-in-out infinite; }
+        .animate-pulse-soft { animation: pulseSoft 2.8s ease-in-out infinite; }
+
+        .selection\:bg-spanish-red::selection { background: #B3262F; }
+        .selection\:text-white::selection { color: #fff; }
+
+        @media (min-width: 640px) {
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sm\:col-span-2 { grid-column: span 2 / span 2; }
+            .sm\:flex-row { flex-direction: row; }
+            .sm\:items-center { align-items: center; }
+            .sm\:justify-between { justify-content: space-between; }
+            .sm\:h-\[520px\] { height: 520px; }
+            .sm\:bottom-6 { bottom: 1.5rem; }
+            .sm\:left-6 { left: 1.5rem; }
+            .sm\:translate-x-0 { transform: translateX(0); }
+            .sm\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        }
+
+        @media (min-width: 768px) {
+            .md\:flex { display: flex; }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:col-span-2 { grid-column: span 2 / span 2; }
+            .md\:translate-y-8 { transform: translateY(2rem); }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\:grid-cols-\[1\.05fr_0\.95fr\] { grid-template-columns: 1.05fr 0.95fr; }
+            .lg\:flex-row { flex-direction: row; }
+            .lg\:items-end { align-items: flex-end; }
+            .lg\:justify-between { justify-content: space-between; }
+            .lg\:col-span-2 { grid-column: span 2 / span 2; }
+            .lg\:-mt-8 { margin-top: -2rem; }
+            .lg\:h-\[620px\] { height: 620px; }
+            .lg\:p-12 { padding: 3rem; }
+            .lg\:text-5xl { font-size: 3rem; line-height: 1; }
+            .lg\:text-7xl { font-size: 4.5rem; line-height: 1; }
+        }
+        
+        .glass-header {
+            background: rgba(253, 251, 247, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(123, 102, 80, 0.16);
+        }
+        
+        .photo-polaroid {
+            background: rgba(255,255,255,0.92);
+            padding: 10px 10px 18px 10px;
+            border: 1px solid rgba(123, 102, 80, 0.14);
+            box-shadow: 0 16px 45px rgba(36, 29, 24, 0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 10px;
+        }
+        
+        .photo-polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
+        
+        .photo-polaroid:nth-child(odd) {
+            transform: rotate(-3deg);
+        }
+        
+        .photo-polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .photo-polaroid img,
+        .memory-frame img {
+            filter: saturate(1.08) contrast(1.04) sepia(0.08);
+        }
+
+        .photo-note {
+            letter-spacing: 0;
+            color: #7B6650;
+        }
+        
+        .menu-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(250,246,238,0.92) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(123, 102, 80, 0.14);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+        }
+        
+        .journey-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #B3262F;
+            background: rgba(179, 38, 47, 0.08);
+            border: 1px solid rgba(179, 38, 47, 0.16);
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .menu-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(179, 38, 47, 0.09);
+            color: #B3262F;
+            border: 1px solid rgba(179, 38, 47, 0.16);
+        }
+        
+        .atlas-section {
+            background:
+                linear-gradient(135deg, rgba(250, 246, 238, 0.96), rgba(230, 207, 168, 0.32)),
+                radial-gradient(circle at 20% 20%, rgba(179, 38, 47, 0.08), transparent 28%),
+                radial-gradient(circle at 80% 75%, rgba(97, 113, 75, 0.12), transparent 32%);
+            border-top: 1px solid rgba(123, 102, 80, 0.16);
+            border-bottom: 1px solid rgba(123, 102, 80, 0.16);
+        }
+
+        .atlas-map {
+            position: relative;
+            overflow: hidden;
+            min-height: 780px;
+            border-radius: 16px;
+            background:
+                linear-gradient(rgba(75, 23, 27, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(75, 23, 27, 0.07) 1px, transparent 1px),
+                radial-gradient(circle at 22% 30%, rgba(179, 38, 47, 0.14), transparent 16%),
+                radial-gradient(circle at 68% 40%, rgba(97, 113, 75, 0.15), transparent 18%),
+                linear-gradient(135deg, #F8EEDB, #FDFBF7 52%, #EFE0C6);
+            background-size: 44px 44px, 44px 44px, auto, auto, auto;
+            border: 1px solid rgba(123, 102, 80, 0.24);
+            box-shadow: inset 0 0 80px rgba(75, 23, 27, 0.08), 0 24px 80px rgba(36, 29, 24, 0.14);
+        }
+
+        .atlas-map::before {
+            content: "";
+            position: absolute;
+            inset: 28px;
+            border: 1px dashed rgba(123, 102, 80, 0.34);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .route-line {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .route-line path {
+            stroke: rgba(179, 38, 47, 0.62);
+            stroke-width: 3;
+            stroke-dasharray: 10 12;
+            stroke-dashoffset: 620;
+            fill: none;
+            animation: routeDraw 2.4s ease-out forwards;
+        }
+
+        .route-plane {
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0 8px 10px rgba(75, 23, 27, 0.22));
+            transition: opacity 0.2s ease;
+        }
+
+        .route-plane-body {
+            fill: #B3262F;
+        }
+
+        .route-plane-wing {
+            fill: #FDFBF7;
+            stroke: rgba(75, 23, 27, 0.28);
+            stroke-width: 1;
+        }
+
+        .route-plane-halo {
+            fill: rgba(179, 38, 47, 0.12);
+            animation: planeHalo 2.4s ease-in-out infinite;
+        }
+
+        .map-pin {
+            position: absolute;
+            width: min(330px, calc(100% - 48px));
+            opacity: 0;
+            animation: pinIn 0.8s ease-out forwards;
+        }
+
+        .map-pin.current {
+            left: 6%;
+            top: 14%;
+            animation-delay: 0.2s;
+        }
+
+        .map-pin.next {
+            right: 6%;
+            top: 16%;
+            animation-delay: 0.55s;
+        }
+
+        .map-pin.future {
+            left: 37%;
+            bottom: 7%;
+            animation-delay: 0.9s;
+        }
+
+        .archive-card {
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid rgba(123, 102, 80, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 18px 48px rgba(36, 29, 24, 0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .map-chapter-card {
+            display: grid;
+            gap: 16px;
+        }
+
+        .chapter-photo {
+            position: relative;
+            overflow: hidden;
+            height: 132px;
+            border-radius: 10px;
+            border: 1px solid rgba(123, 102, 80, 0.14);
+            background: #F8EEDB;
+        }
+
+        .chapter-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.06) contrast(1.03) sepia(0.06);
+        }
+
+        .chapter-photo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(23, 20, 18, 0.38), transparent 62%);
+            pointer-events: none;
+        }
+
+        .chapter-photo-label {
+            position: absolute;
+            left: 14px;
+            bottom: 12px;
+            z-index: 2;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .week-number {
+            display: inline-grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 1px solid rgba(179, 38, 47, 0.28);
+            background: rgba(179, 38, 47, 0.08);
+            color: #B3262F;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .passport-stamp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 112px;
+            padding: 8px 12px;
+            border: 1px solid currentColor;
+            border-radius: 4px;
+            color: #6E2430;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transform: rotate(-4deg);
+        }
+
+        .archive-details {
+            border-radius: 16px;
+            border: 1px solid rgba(123, 102, 80, 0.18);
+            background: rgba(255, 255, 255, 0.62);
+            box-shadow: 0 18px 54px rgba(36, 29, 24, 0.08);
+            overflow: hidden;
+        }
+
+        .archive-details summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .archive-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .archive-chevron {
+            transition: transform 0.28s ease;
+        }
+
+        .archive-details[open] .archive-chevron {
+            transform: rotate(180deg);
+        }
+
+        .archive-panel {
+            animation: archiveOpen 0.42s ease-out;
+        }
+
+        @keyframes archiveOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .announcement-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(179, 38, 47, 0.16), transparent 28%),
+                radial-gradient(circle at 80% 30%, rgba(97, 113, 75, 0.16), transparent 30%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(250, 246, 238, 0.86));
+            border: 1px solid rgba(123, 102, 80, 0.18);
+            box-shadow: 0 24px 76px rgba(36, 29, 24, 0.13);
+        }
+
+        .announcement-card::before {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            border: 1px dashed rgba(123, 102, 80, 0.24);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+
+        .announcement-orbit {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(179, 38, 47, 0.2);
+            border-radius: 50%;
+            right: -70px;
+            top: -70px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .memory-frame {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(123, 102, 80, 0.16);
+            box-shadow: 0 18px 52px rgba(36, 29, 24, 0.13);
+        }
+
+        .memory-frame::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(23, 20, 18, 0.58), transparent 52%);
+            pointer-events: none;
+        }
+
+        .memory-caption {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 16px;
+            z-index: 2;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .atlas-map {
+                min-height: 2180px;
+            }
+
+            .map-pin,
+            .map-pin.current,
+            .map-pin.next,
+            .map-pin.future {
+                left: 24px;
+                right: 24px;
+                width: auto;
+            }
+
+            .map-pin.current {
+                top: 72px;
+            }
+
+            .map-pin.next {
+                top: 780px;
+            }
+
+            .map-pin.future {
+                top: 1500px;
+                bottom: auto;
+            }
+        }
+        
+        .dotted-pattern {
+            background-image: radial-gradient(rgba(123, 102, 80, 0.12) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 14px 42px rgba(36, 29, 24, 0.14);
+            aspect-ratio: 3/4;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 20px 15px 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(179, 38, 47, 0.45);
+            outline-offset: 3px;
+        }
+
+        @keyframes routeDraw {
+            from {
+                stroke-dashoffset: 620;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes pinIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(179, 38, 47, 0.22);
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(179, 38, 47, 0);
+            }
+        }
+
+        @keyframes planeHalo {
+            0%, 100% {
+                transform: scale(0.88);
+                opacity: 0.52;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 0.18;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-home-cream via-home-cream to-white text-home-dark font-sans antialiased selection:bg-spanish-red selection:text-white overflow-x-hidden">
+
+    <div id="siteContent">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-header transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-serif font-bold text-2xl tracking-tight text-home-dark">НАШ ДОМ</div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Традиция</a>
+                <a href="#atlas" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Карта</a>
+                <a href="#archive" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Архив</a>
+                <a href="#gallery" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Моменты</a>
+                <a href="#tradition" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Ритм</a>
+                <a href="#menu" class="text-sm font-medium text-spanish-red hover:text-wine-red transition-colors">Меню</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center pt-20 overflow-x-hidden">
+        <div class="absolute inset-0 dotted-pattern opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <!-- Hero Text -->
+            <div class="order-1 space-y-8 animate-fade-in">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-spanish-red/10 text-spanish-red rounded-full text-sm font-semibold tracking-wide">
+                    <span class="w-2 h-2 bg-spanish-red rounded-full animate-pulse"></span>
+                    Неделя II - Греция
+                </div>
+                
+                <h1 class="font-serif text-5xl lg:text-7xl font-bold leading-[1.1] text-home-dark">
+                    Атлас нашего дома.<br>
+                    <span class="text-home-brown italic font-light">Каждая неделя - новая страна.</span>
+                </h1>
+                
+                <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
+                    Семейная традиция кухни мира: мы выбираем страну, готовим её вечер и сохраняем историю на карте, чтобы каждая глава оставалась с нами.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <button onclick="document.getElementById('atlas').scrollIntoView({behavior: 'smooth'})" 
+                        class="px-8 py-4 bg-home-dark text-white font-medium rounded-full hover:bg-spanish-red transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Открыть карту
+                    </button>
+                    <button onclick="document.getElementById('archive').scrollIntoView({behavior: 'smooth'})" 
+                        class="px-8 py-4 bg-white text-home-dark font-medium rounded-full border-2 border-home-brown hover:border-spanish-red hover:text-spanish-red transition-all duration-300">
+                        История недель
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="order-2 animate-slide-up">
+                <div class="relative overflow-visible h-[460px] sm:h-[520px] lg:h-[620px]">
+                    <div class="absolute -inset-6 bg-gradient-to-r from-spanish-red/20 to-spanish-gold/20 rounded-3xl blur-2xl"></div>
+                    <div class="relative w-full h-full rounded-2xl shadow-2xl overflow-hidden bg-home-cream/10">
+                        <img src="images/hero-couple.jpg"
+                             alt="Наша команда"
+                             class="w-full h-full object-cover object-center transform rotate-1 hover:rotate-0 transition-transform duration-500">
+                    </div>
+                    
+                    <!-- Info card on hero photo -->
+                    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-6 sm:left-6 sm:translate-x-0 bg-white/90 backdrop-blur-md border border-home-warm/25 px-5 py-4 rounded-2xl shadow-xl animate-float max-w-[18.5rem]">
+                        <p class="font-serif text-base sm:text-lg font-bold text-home-dark leading-snug">
+                            Дом становится портом отправления.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Atlas Map Section -->
+    <section id="atlas" class="atlas-section py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mb-12">
+                <span class="text-spanish-red font-semibold tracking-widest uppercase text-sm">Историческая карта</span>
+                <h2 class="font-serif text-4xl lg:text-5xl font-bold mt-3 text-home-dark">Маршрут кухни мира</h2>
+                <p class="text-gray-600 mt-4 text-lg leading-relaxed">
+                    Каждая неделя получает свою точку на карте: римскую цифру, страну, блюда и маленькую заметку о том, каким был вечер.
+                </p>
+            </div>
+
+            <div class="atlas-map">
+                <svg class="route-line" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+                    <path id="routePath" d="M170 230 C360 130 620 150 830 250 C760 390 650 560 540 620" />
+                    <g id="routePlane" class="route-plane">
+                        <circle class="route-plane-halo" cx="0" cy="0" r="30"></circle>
+                        <g transform="translate(-18 -18) rotate(45 18 18)">
+                            <path class="route-plane-body" d="M18 1.5c1.4 0 2.4 1.1 2.4 2.5v11.7l10.8 6.7c.7.4 1.1 1.2 1.1 2v2.2l-11.9-3.8v7.3l3.4 2.6v1.9L18 33.2l-5.8 1.4v-1.9l3.4-2.6v-7.3L3.7 26.6v-2.2c0-.8.4-1.6 1.1-2l10.8-6.7V4c0-1.4 1-2.5 2.4-2.5Z"></path>
+                            <path class="route-plane-wing" d="M15.6 22.8 3.7 26.6v-2.2c0-.8.4-1.6 1.1-2l10.8-6.7v7.1Z"></path>
+                            <path class="route-plane-wing" d="M20.4 22.8 32.3 26.6v-2.2c0-.8-.4-1.6-1.1-2l-10.8-6.7v7.1Z"></path>
+                        </g>
+                    </g>
+                </svg>
+
+                <article class="map-pin current archive-card map-chapter-card p-6">
+                    <div class="flex items-start justify-between gap-4 mb-5">
+                        <span class="week-number">I</span>
+                        <span class="passport-stamp">Visited</span>
+                    </div>
+                    <div class="chapter-photo">
+                        <img src="images/spanish-food.jpg" alt="Испанский стол недели I">
+                        <span class="chapter-photo-label">Еда вечера</span>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-home-dark">Испания</h3>
+                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Текущая глава</p>
+                    <p class="text-gray-600 mt-4 leading-relaxed">Гаспачо, тапас, оливки и портвейн. Первый маршрут, с которого начинается семейный атлас.</p>
+                </article>
+
+                <article class="map-pin next archive-card map-chapter-card p-6">
+                    <div class="flex items-start justify-between gap-4 mb-5">
+                        <span class="week-number">II</span>
+                        <span class="passport-stamp">Visited</span>
+                    </div>
+                    <div class="chapter-photo">
+                        <img src="images/greek-week-generated.png" alt="Греческий вечер недели II">
+                        <span class="chapter-photo-label">Греческий вечер</span>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-home-dark">Греция</h3>
+                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Посещённая глава</p>
+                    <p class="text-gray-600 mt-4 leading-relaxed">Гирос, греческий салат и вино. Вторая отметка уже на карте и хранится в семейной хронике.</p>
+                </article>
+
+                <article class="map-pin future archive-card map-chapter-card p-6">
+                    <div class="flex items-start justify-between gap-4 mb-5">
+                        <span class="week-number">III</span>
+                        <span class="passport-stamp text-olive">Soon</span>
+                    </div>
+                    <div class="chapter-photo">
+                        <img src="images/family-atlas-generated.png" alt="Будущая глава семейного атласа">
+                        <span class="chapter-photo-label">Скоро</span>
+                    </div>
+                    <h3 class="font-serif text-3xl font-bold text-home-dark">Новый анонс</h3>
+                    <p class="text-sm uppercase tracking-widest text-olive font-semibold mt-1">Скоро будет</p>
+                    <p class="text-gray-600 mt-4 leading-relaxed">Скоро здесь появятся страна, меню, дата и новая история вечера.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-serif text-4xl font-bold mb-8 text-home-dark">Что такое эта традиция?</h2>
+            
+            <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>
+                    <span class="font-serif text-2xl text-spanish-red">"</span>
+                    Наш дом — это место, откуда можно отправиться куда угодно.
+                    <span class="font-serif text-2xl text-spanish-red">"</span>
+                </p>
+                <p>
+                    Раз в неделю мы выбираем страну, готовим её кухню и сохраняем вечер как новую главу:
+                    <strong class="text-home-dark"> страна</strong>, <strong class="text-home-dark">меню</strong>,
+                    <strong class="text-home-dark">фотографии</strong> и маленькая память о том, какими мы были в этот день.
+                </p>
+            </div>
+            
+            <!-- Decorative divider -->
+            <div class="flex items-center justify-center gap-4 pt-12">
+                <div class="w-16 h-px bg-spanish-red"></div>
+                <span class="w-10 h-10 rounded-full border border-spanish-red/25 bg-spanish-red/10 text-spanish-red grid place-items-center font-serif font-bold">H</span>
+                <div class="w-16 h-px bg-spanish-red"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section id="archive" class="py-24 bg-home-cream">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12">
+                <div class="max-w-2xl">
+                    <span class="text-spanish-red font-semibold tracking-widest uppercase text-sm">Архив путешествий</span>
+                    <h2 class="font-serif text-4xl font-bold mt-3 text-home-dark">История прошлых недель</h2>
+                    <p class="text-gray-600 mt-4 leading-relaxed">
+                        Здесь будет накапливаться семейная хроника: номер недели римской цифрой, страна, блюда и короткая заметка.
+                    </p>
+                </div>
+                <div class="passport-stamp">Family Atlas</div>
+            </div>
+
+            <details class="archive-details" open>
+                <summary class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-6 py-5">
+                    <div>
+                        <p class="text-sm uppercase tracking-widest text-spanish-red font-bold">Открыть / свернуть журнал</p>
+                        <p class="text-gray-600 mt-1">Сейчас сохранено 2 главы, следующая ждёт анонса.</p>
+                    </div>
+                    <span class="archive-chevron w-11 h-11 rounded-full border border-home-brown/20 bg-white/80 grid place-items-center text-home-brown">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"></path>
+                        </svg>
+                    </span>
+                </summary>
+
+                <div class="archive-panel px-6 pb-6">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <article class="archive-card p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="week-number">I</span>
+                                <span class="text-xs uppercase tracking-widest text-spanish-red font-bold">Visited</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold text-home-dark">Испанская неделя</h3>
+                            <p class="text-sm text-gray-500 mt-1">Гаспачо, тапас, оливки, портвейн</p>
+                            <p class="text-gray-600 mt-5 leading-relaxed">Первая отметка на карте. Вечер про южное тепло, маленькие закуски и ощущение, что традиция действительно началась.</p>
+                        </article>
+
+                        <article class="archive-card p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="week-number">II</span>
+                                <span class="text-xs uppercase tracking-widest text-spanish-red font-bold">Visited</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold text-home-dark">Греческая неделя</h3>
+                            <p class="text-sm text-gray-500 mt-1">Гирос, греческий салат, вино</p>
+                            <p class="text-gray-600 mt-5 leading-relaxed">Вторая глава маршрута. Теперь Греция тоже сохранена в архиве и отмечена на карте как посещённая.</p>
+                        </article>
+
+                        <article class="archive-card p-6 border-dashed">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="week-number">III</span>
+                                <span class="text-xs uppercase tracking-widest text-olive font-bold">Анонс скоро</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold text-home-dark">Следующая страна</h3>
+                            <p class="text-sm text-gray-500 mt-1">Скоро будет анонс</p>
+                            <p class="text-gray-600 mt-5 leading-relaxed">Скоро здесь появятся страна, блюда, дата и маленькая заметка о новом вечере.</p>
+                        </article>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Team Gallery Section -->
+    <section id="team" class="py-24 bg-home-cream dotted-pattern">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-spanish-red font-semibold tracking-widest uppercase text-sm">Экипаж дома</span>
+                <h2 class="font-serif text-4xl font-bold mt-3 text-home-dark">Люди, которые делают маршрут живым</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Photo 1 - Chef -->
+                <div class="photo-polaroid group">
+                    <img src="images/chef-kitchen.jpg" 
+                         alt="Шеф-повар" 
+                         class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
+                    <p class="text-center font-serif mt-4 photo-note">Капитан кухни</p>
+                </div>
+
+                <!-- Photo 2 - Woman in orange -->
+                <div class="photo-polaroid group lg:-mt-8">
+                    <img src="images/woman-orange.jpg" 
+                         alt="Хозяйка вечера" 
+                         class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
+                    <p class="text-center font-serif mt-4 photo-note">Хранительница атмосферы</p>
+                </div>
+
+                <!-- Photo 3 - Flower crown -->
+                <div class="photo-polaroid group">
+                    <img src="images/flower-crown.jpg" 
+                         alt="Душа компании" 
+                         class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
+                    <p class="text-center font-serif mt-4 photo-note">Праздничный компас</p>
+                </div>
+
+                <!-- Photo 4 - Couple (center) -->
+                <div class="photo-polaroid group sm:col-span-2 lg:col-span-2 lg:-mt-8">
+                    <img src="images/couple-romantic.jpg" 
+                         alt="Наша команда" 
+                         class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
+                    <p class="text-center font-serif mt-4 photo-note">Главные путешественники</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-spanish-red font-semibold tracking-widest uppercase text-sm">Путевой альбом</span>
+                <h2 class="font-serif text-4xl font-bold mt-3 text-home-dark">Фотографии и видео маршрута</h2>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+                    Здесь живут кадры, которые превращают ужин в историю: лица, стол, детали и маленькие сцены недели.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <article class="archive-card p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <div>
+                            <span class="week-number">I</span>
+                            <h3 class="font-serif text-3xl font-bold text-home-dark mt-4">Испанская неделя</h3>
+                            <p class="text-gray-500 mt-1">Еда, вино и первый вечер маршрута.</p>
+                        </div>
+                        <span class="passport-stamp">Visited</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="memory-frame">
+                            <img src="images/spanish-food.jpg" alt="Испанские блюда на столе" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Испанский стол</p>
+                                <p class="text-sm text-white/80">Гаспачо, тапас и оливки</p>
+                            </div>
+                        </div>
+                        <div class="memory-frame">
+                            <img src="images/port-wine.jpg" alt="Вино для испанского вечера" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Вкус вечера</p>
+                                <p class="text-sm text-white/80">Портвейн и медленный финал</p>
+                            </div>
+                        </div>
+                        <div class="memory-frame">
+                            <img src="images/couple-romantic.jpg" alt="Главные путешественники" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Наш экипаж</p>
+                                <p class="text-sm text-white/80">Те, ради кого карта растёт</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-home-cream/30 via-home-cream/10 to-spanish-red/10 border border-home-warm/20 transition-transform duration-300 hover:-translate-y-1">
+                        <div class="bg-black" style="aspect-ratio: 16 / 9;">
+                            <video controls playsinline preload="metadata" class="w-full h-full object-cover bg-black" src="videos/img-6601.mov">
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                        </div>
+                        <div class="py-4 text-center font-serif text-home-brown bg-white">
+                            Видео-дневник недели I
+                        </div>
+                    </div>
+                </article>
+
+                <article class="archive-card p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <div>
+                            <span class="week-number">II</span>
+                            <h3 class="font-serif text-3xl font-bold text-home-dark mt-4">Греческая неделя</h3>
+                            <p class="text-gray-500 mt-1">Гирос, греческий салат, вино и вторая отметка на карте.</p>
+                        </div>
+                        <span class="passport-stamp">Visited</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="memory-frame md:col-span-2">
+                            <img src="images/greek-week-generated.png" alt="Греческий вечер и еда недели II" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Греческий вечер</p>
+                                <p class="text-sm text-white/80">Еда, карта и домашний свет</p>
+                            </div>
+                        </div>
+                        <div class="memory-frame">
+                            <img src="images/family-atlas-generated.png" alt="Вечер за картой семейного атласа" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Глава II</p>
+                                <p class="text-sm text-white/80">Вторая точка маршрута</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-home-cream/30 via-home-cream/10 to-spanish-red/10 border border-home-warm/20 transition-transform duration-300 hover:-translate-y-1">
+                        <div class="bg-black" style="aspect-ratio: 16 / 9;">
+                            <video controls playsinline preload="metadata" class="w-full h-full object-cover bg-black" src="videos/img-6603.mov">
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                        </div>
+                        <div class="py-4 text-center font-serif text-home-brown bg-white">
+                            Видео-дневник недели II
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tradition Section -->
+    <section id="tradition" class="py-24 bg-home-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-spanish-red rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-spanish-gold rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm animate-float border border-white/10">
+                <span class="font-serif text-3xl text-home-warm">N</span>
+            </div>
+            
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold mb-8">Кулинарные путешествия</h2>
+            
+            <p class="text-xl text-gray-300 leading-relaxed mb-12">
+                Раз в неделю наш дом становится новой точкой на карте. Мы выбираем кухню мира,
+                готовим вечер, записываем номер главы и оставляем память для будущих нас.
+                <br><br>
+                <span class="italic text-home-warm">"Обычный ужин может стать маленьким путешествием, если дать ему историю."</span>
+            </p>
+            
+            <div class="inline-block">
+                <button onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})" 
+                    class="group relative px-10 py-5 text-white font-serif text-lg rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-4 bg-spanish-red hover:bg-wine-red">
+                    <span>Перейти к анонсу</span>
+                    <svg class="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </button>
+                <p class="mt-4 text-sm text-gray-400 uppercase tracking-widest">Следующий анонс скоро</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-home-cream relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="font-semibold tracking-widest uppercase text-sm text-spanish-red">Следующая глава</span>
+                <h2 class="font-serif text-5xl font-bold mt-3 text-home-dark">Скоро будет анонс</h2>
+                <p class="text-gray-600 mt-2">Ты напишешь страну и блюда, а я добавлю их в меню, карту и архив.</p>
+                <div class="mx-auto mt-6 h-1 bg-spanish-red" style="width: 96px;"></div>
+            </div>
+
+            <div class="announcement-card p-8 lg:p-12">
+                <div class="announcement-orbit"></div>
+                <div class="relative z-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+                    <div>
+                        <span class="passport-stamp">Coming Soon</span>
+                        <h3 class="font-serif text-4xl lg:text-5xl font-bold text-home-dark mt-8">Меню следующего путешествия</h3>
+                        <p class="text-gray-600 mt-5 text-lg leading-relaxed">
+                            Этот блок специально оставлен как место для будущего анонса. Когда появятся страна,
+                            блюда, напитки и настроение вечера, мы превратим его в полноценную главу.
+                        </p>
+                        <div class="memory-frame mt-8 max-w-lg">
+                            <img src="images/family-atlas-generated.png" alt="Атмосферная обложка семейного атласа кухни мира" class="w-full h-80 object-cover">
+                            <div class="memory-caption">
+                                <p class="font-serif text-xl font-bold">Будущая глава</p>
+                                <p class="text-sm text-white/80">Обложка для нового маршрута</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4">
+                        <div class="archive-card p-5 flex items-center gap-4">
+                            <span class="week-number animate-pulse-soft">III</span>
+                            <div>
+                                <p class="text-sm uppercase tracking-widest text-spanish-red font-bold">Страна</p>
+                                <p class="text-gray-500">Добавим после твоего сообщения</p>
+                            </div>
+                        </div>
+                        <div class="archive-card p-5">
+                            <p class="text-sm uppercase tracking-widest text-home-brown font-bold mb-3">Что будет в меню</p>
+                            <div class="grid sm:grid-cols-2 gap-3 text-gray-500">
+                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Основное блюдо</span>
+                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Закуски</span>
+                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Напитки</span>
+                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Заметка вечера</span>
+                            </div>
+                        </div>
+                        <div class="archive-card p-5 border-dashed">
+                            <p class="text-sm uppercase tracking-widest text-olive font-bold">Статус</p>
+                            <p class="font-serif text-2xl text-home-dark mt-2">Ждём новый маршрут</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-home-dark text-white py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h3 class="font-serif text-2xl font-bold mb-4">НАШ ДОМ</h3>
+                    <p class="text-gray-400">Здесь начинаются традиции</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-home-warm">Навигация</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-spanish-red transition-colors">Традиция</a></li>
+                        <li><a href="#atlas" class="hover:text-spanish-red transition-colors">Карта</a></li>
+                        <li><a href="#archive" class="hover:text-spanish-red transition-colors">Архив</a></li>
+                        <li><a href="#team" class="hover:text-spanish-red transition-colors">Команда</a></li>
+                        <li><a href="#gallery" class="hover:text-spanish-red transition-colors">Моменты</a></li>
+                        <li><a href="#tradition" class="hover:text-spanish-red transition-colors">Ритм</a></li>
+                        <li><a href="#menu" class="hover:text-spanish-red transition-colors">Меню</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4 text-home-warm">Следующее путешествие</h4>
+                    <p class="text-gray-400">Новая страна</p>
+                    <p class="text-sm text-gray-500 mt-2">Скоро будет анонс</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 text-center text-gray-500">
+                <p>© 2026 Наша Команда. Все права защищены.</p>
+                <p class="text-sm mt-2">Сделано с любовью</p>
+
+                <div class="mt-8 max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
+                    <p class="font-serif text-lg text-home-warm leading-relaxed">
+                        Ничего бы не было, если бы не ты. Софья.
+                    </p>
+                    <p class="text-gray-300 mt-2">
+                        Этот сайт — идея для нашего свидания: давай сделаем этот вечер особенным.
+                    </p>
+                    <p class="text-gray-400 text-sm mt-3">
+                        Спасибо тебе за вдохновение и за то, что ты рядом.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+    <script>
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const updateRoutePlane = () => {
+            const atlas = document.getElementById('atlas');
+            const path = document.getElementById('routePath');
+            const plane = document.getElementById('routePlane');
+
+            if (!atlas || !path || !plane) return;
+
+            const rect = atlas.getBoundingClientRect();
+            const travelWindow = window.innerHeight + rect.height * 0.35;
+            const progress = clamp((window.innerHeight * 0.72 - rect.top) / travelWindow, 0, 1);
+            const length = path.getTotalLength();
+            const point = path.getPointAtLength(length * progress);
+            const nextPoint = path.getPointAtLength(length * clamp(progress + 0.01, 0, 1));
+            const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * 180 / Math.PI;
+
+            plane.setAttribute('transform', `translate(${point.x} ${point.y}) rotate(${angle})`);
+        };
+
+        let routeFrame = null;
+        const scheduleRoutePlaneUpdate = () => {
+            if (routeFrame) return;
+            routeFrame = requestAnimationFrame(() => {
+                routeFrame = null;
+                updateRoutePlane();
+            });
+        };
+
+        updateRoutePlane();
+        window.addEventListener('load', updateRoutePlane);
+        window.addEventListener('resize', scheduleRoutePlaneUpdate);
+        window.addEventListener('scroll', scheduleRoutePlaneUpdate, { passive: true });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
