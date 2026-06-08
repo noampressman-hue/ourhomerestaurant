@@ -603,6 +603,144 @@
             animation: float 6s ease-in-out infinite;
         }
 
+        .anniversary-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 50% 15%, rgba(179, 38, 47, 0.22), transparent 34%),
+                linear-gradient(135deg, rgba(250, 246, 238, 0.97), rgba(36, 29, 24, 0.92));
+            backdrop-filter: blur(14px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.45s ease;
+        }
+
+        .anniversary-gate.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .anniversary-card {
+            width: min(720px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow: auto;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 18% 12%, rgba(179, 38, 47, 0.12), transparent 30%),
+                linear-gradient(135deg, rgba(255,255,255,0.96), rgba(250,246,238,0.94));
+            border: 1px solid rgba(123, 102, 80, 0.2);
+            box-shadow: 0 34px 90px rgba(23, 20, 18, 0.36);
+            padding: 32px;
+            transform: translateY(24px) scale(0.98);
+            transition: transform 0.45s ease;
+        }
+
+        .anniversary-gate.show .anniversary-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .anniversary-lock {
+            display: grid;
+            place-items: center;
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            color: #B3262F;
+            background: rgba(179, 38, 47, 0.08);
+            border: 1px solid rgba(179, 38, 47, 0.24);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 34px;
+            font-weight: 700;
+            animation: pulseSoft 2.8s ease-in-out infinite;
+        }
+
+        .anniversary-video-wrap {
+            display: none;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(123, 102, 80, 0.18);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(179, 38, 47, 0.12), transparent 34%),
+                linear-gradient(135deg, rgba(250, 246, 238, 0.98), rgba(255, 255, 255, 0.92));
+            box-shadow: 0 18px 52px rgba(36, 29, 24, 0.18);
+            padding: 28px;
+        }
+
+        .anniversary-card.unlocked .anniversary-video-wrap,
+        .anniversary-card.unlocked .anniversary-note {
+            display: block;
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+
+        .anniversary-card.unlocked .anniversary-locked-copy {
+            display: none;
+        }
+
+        .anniversary-note {
+            display: none;
+        }
+
+        .anniversary-button {
+            border: 0;
+            border-radius: 999px;
+            padding: 14px 24px;
+            background: #241D18;
+            color: #fff;
+            box-shadow: 0 14px 32px rgba(36, 29, 24, 0.2);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .anniversary-button:hover {
+            transform: translateY(-2px);
+            background: #B3262F;
+        }
+
+        .anniversary-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.58;
+            transform: none;
+            background: #7B6650;
+        }
+
+        .anniversary-button-secondary {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: transparent;
+            color: #7B6650;
+            border: 1px solid rgba(123, 102, 80, 0.28);
+            box-shadow: none;
+        }
+
+        .anniversary-button-secondary:hover {
+            background: rgba(123, 102, 80, 0.08);
+            color: #241D18;
+        }
+
+        .anniversary-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            border-radius: 999px;
+            padding: 14px 24px;
+            background: #B3262F;
+            color: #fff;
+            box-shadow: 0 14px 32px rgba(179, 38, 47, 0.2);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .anniversary-link:hover {
+            transform: translateY(-2px);
+            background: #6E2430;
+        }
+
         .memory-frame {
             position: relative;
             overflow: hidden;
@@ -753,6 +891,52 @@
     </style>
 </head>
 <body class="bg-gradient-to-b from-home-cream via-home-cream to-white text-home-dark font-sans antialiased selection:bg-spanish-red selection:text-white overflow-x-hidden">
+
+    <div id="anniversaryGate" class="anniversary-gate" aria-modal="true" role="dialog" aria-labelledby="anniversaryTitle">
+        <div id="anniversaryCard" class="anniversary-card text-center">
+            <div class="anniversary-lock">I</div>
+            <p class="text-sm uppercase tracking-widest text-spanish-red font-bold">Первая годовщина</p>
+            <h2 id="anniversaryTitle" class="font-serif text-4xl font-bold mt-3 text-home-dark">Видео-открытка</h2>
+
+            <div class="anniversary-locked-copy">
+                <p class="text-gray-600 mt-5 leading-relaxed">
+                    Эта открытка откроется 09.06.2026. До этого момента внутри ничего не видно.
+                </p>
+                <button id="anniversaryOpenButton" class="anniversary-button mt-8" type="button" disabled>
+                    Открыть 09.06.2026
+                </button>
+                <button id="anniversarySkipButton" class="anniversary-button anniversary-button-secondary mt-4" type="button">
+                    Перейти к атласу
+                </button>
+            </div>
+
+            <div class="anniversary-video-wrap mt-8">
+                <p class="font-serif text-2xl text-home-dark">Открытка готова.</p>
+                <p class="text-gray-600 mt-4 leading-relaxed">
+                    Видео хранится отдельно, чтобы сайт быстро открывался и спокойно загружался на Vercel.
+                </p>
+                <a id="anniversaryVideoLink" class="anniversary-link" href="https://disk.yandex.ru/i/jPf6tljMl809vg" target="_blank" rel="noopener">
+                    Открыть видео на Яндекс Диске
+                </a>
+            </div>
+
+            <div class="anniversary-note mt-8 text-left">
+                <p class="font-serif text-2xl text-home-dark">С первой годовщиной нас.</p>
+                <p class="text-gray-600 mt-4 leading-relaxed">
+                    Это маленькая видео-открытка про наш дом, нашу память и первый год, который стал началом
+                    чего-то очень тёплого. Спасибо тебе за нежность, за рядом, за смех, за вечера, которые хочется
+                    хранить как главы в нашем семейном атласе.
+                </p>
+                <p class="text-gray-600 mt-4 leading-relaxed">
+                    Пусть дальше у нас будет ещё много стран, ужинов, маршрутов и простых счастливых дней,
+                    где главное путешествие — это мы.
+                </p>
+                <button id="anniversaryCloseButton" class="anniversary-button mt-6" type="button">
+                    Перейти к атласу
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div id="siteContent">
 
@@ -1270,6 +1454,47 @@
 
     <script>
         const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const setupAnniversaryGate = () => {
+            const gate = document.getElementById('anniversaryGate');
+            const card = document.getElementById('anniversaryCard');
+            const openButton = document.getElementById('anniversaryOpenButton');
+            const skipButton = document.getElementById('anniversarySkipButton');
+            const closeButton = document.getElementById('anniversaryCloseButton');
+
+            if (!gate || !card || !openButton || !skipButton || !closeButton) return;
+
+            const params = new URLSearchParams(window.location.search);
+            const previewUnlocked = params.get('anniversary') === 'preview';
+            const today = new Date();
+            const unlockDate = new Date(2026, 5, 9, 0, 0, 0);
+            const isUnlocked = previewUnlocked || today >= unlockDate;
+
+            gate.classList.add('show');
+            document.body.classList.add('overflow-hidden');
+
+            if (isUnlocked) {
+                openButton.disabled = false;
+                openButton.textContent = 'Открыть открытку';
+            }
+
+            openButton.addEventListener('click', () => {
+                if (!isUnlocked) return;
+                card.classList.add('unlocked');
+            });
+
+            skipButton.addEventListener('click', () => {
+                gate.classList.remove('show');
+                document.body.classList.remove('overflow-hidden');
+            });
+
+            closeButton.addEventListener('click', () => {
+                gate.classList.remove('show');
+                document.body.classList.remove('overflow-hidden');
+            });
+        };
+
+        setupAnniversaryGate();
 
         const updateRoutePlane = () => {
             const atlas = document.getElementById('atlas');
