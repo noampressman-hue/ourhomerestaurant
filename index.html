@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Семейный атлас: каждая неделя — новая страна, её кухня и наша история.">
+    <meta name="theme-color" content="#241D18">
     <title>Наш дом. Здесь начинаются традиции.</title>
-    
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23241D18'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='%23B3262F' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap">
+
     <style>
         html { scroll-behavior: smooth; }
 
@@ -278,6 +286,67 @@
             .lg\:text-7xl { font-size: 4.5rem; line-height: 1; }
         }
         
+
+        .site-nav-links {
+            gap: clamp(0.85rem, 1.6vw, 1.5rem);
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .product-rail {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .product-shot {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(123, 102, 80, 0.16);
+            background: #FDFBF7;
+            box-shadow: 0 18px 48px rgba(36, 29, 24, 0.12);
+        }
+
+        .product-shot img {
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            object-fit: cover;
+            filter: saturate(1.04) contrast(1.03);
+        }
+
+        .product-shot.contain img {
+            object-fit: contain;
+            background: #F7F1E8;
+            padding: 12px;
+        }
+
+        .product-label {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 14px;
+            z-index: 2;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 2px 14px rgba(0,0,0,0.32);
+        }
+
+        .product-shot::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(23, 20, 18, 0.46), transparent 48%);
+            pointer-events: none;
+        }
+
+        .postcard-panel {
+            border-radius: 18px;
+            border: 1px solid rgba(123, 102, 80, 0.18);
+            background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(250,246,238,0.9));
+            box-shadow: 0 24px 70px rgba(36, 29, 24, 0.13);
+        }
         .glass-header {
             background: rgba(253, 251, 247, 0.9);
             backdrop-filter: blur(12px);
@@ -427,6 +496,9 @@
             animation: planeHalo 2.4s ease-in-out infinite;
         }
 
+        /* pin-1/2/3 — это позиции на карте (первая, вторая, третья точка маршрута),
+           а не статус главы. Статус живёт в тексте карточки, поэтому новую неделю
+           можно добавлять, не переименовывая классы у соседей. */
         .map-pin {
             position: absolute;
             width: min(330px, calc(100% - 48px));
@@ -434,19 +506,19 @@
             animation: pinIn 0.8s ease-out forwards;
         }
 
-        .map-pin.current {
+        .map-pin.pin-1 {
             left: 6%;
             top: 14%;
             animation-delay: 0.2s;
         }
 
-        .map-pin.next {
+        .map-pin.pin-2 {
             right: 6%;
             top: 16%;
             animation-delay: 0.55s;
         }
 
-        .map-pin.future {
+        .map-pin.pin-3 {
             left: 37%;
             bottom: 7%;
             animation-delay: 0.9s;
@@ -772,23 +844,23 @@
             }
 
             .map-pin,
-            .map-pin.current,
-            .map-pin.next,
-            .map-pin.future {
+            .map-pin.pin-1,
+            .map-pin.pin-2,
+            .map-pin.pin-3 {
                 left: 24px;
                 right: 24px;
                 width: auto;
             }
 
-            .map-pin.current {
+            .map-pin.pin-1 {
                 top: 72px;
             }
 
-            .map-pin.next {
+            .map-pin.pin-2 {
                 top: 780px;
             }
 
-            .map-pin.future {
+            .map-pin.pin-3 {
                 top: 1500px;
                 bottom: auto;
             }
@@ -888,69 +960,213 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* ============================================================
+           Рукописный слой. Главное отличие подарка от витрины:
+           часть текста выглядит как написанная от руки на полях.
+           Caveat используется только для личных пометок — не для
+           заголовков и не для длинных абзацев.
+           ============================================================ */
+        .handwritten {
+            font-family: 'Caveat', 'Segoe Script', cursive;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            line-height: 1.35;
+            color: #7B6650;
+        }
+        .handwritten-lg { font-size: clamp(1.35rem, 3.2vw, 1.9rem); }
+        .handwritten-md { font-size: 1.35rem; }
+        .handwritten-sm { font-size: 1.15rem; }
+        .handwritten-red { color: #B3262F; }
+        .handwritten-warm { color: #E6CFA8; }
+
+        /* Пометка на полях — с маленькой стрелкой, как в блокноте. */
+        .margin-note {
+            position: relative;
+            display: inline-block;
+            padding-left: 1.9rem;
+            transform: rotate(-1.4deg);
+        }
+        .margin-note::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 1.4rem;
+            height: 0.7rem;
+            border-left: 2px solid rgba(179, 38, 47, 0.45);
+            border-bottom: 2px solid rgba(179, 38, 47, 0.45);
+            border-bottom-left-radius: 8px;
+        }
+
+        /* Разделитель-орнамент между главами — вместо ещё одной серой линии. */
+        .chapter-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem;
+            padding: 0 1.5rem;
+            color: rgba(123, 102, 80, 0.4);
+        }
+        .chapter-divider::before,
+        .chapter-divider::after {
+            content: "";
+            height: 1px;
+            width: min(7rem, 18vw);
+            background: linear-gradient(90deg, transparent, rgba(123, 102, 80, 0.35), transparent);
+        }
+        .chapter-divider svg { color: rgba(179, 38, 47, 0.5); }
+
+        /* Письмо-посвящение: бумага, а не футер. */
+        .letter {
+            position: relative;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 2.35rem,
+                    rgba(123, 102, 80, 0.13) 2.35rem,
+                    rgba(123, 102, 80, 0.13) calc(2.35rem + 1px)
+                ),
+                linear-gradient(160deg, #FDFBF6, #F6EEDE);
+            border: 1px solid rgba(123, 102, 80, 0.24);
+            border-radius: 14px;
+            box-shadow: 0 30px 70px rgba(36, 29, 24, 0.18);
+            transform: rotate(-0.5deg);
+        }
+        .letter::before {
+            content: "";
+            position: absolute;
+            left: 2.6rem;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(179, 38, 47, 0.18);
+        }
+        /* Кусочек скотча сверху — будто письмо приклеено в альбом. */
+        .letter::after {
+            content: "";
+            position: absolute;
+            top: -0.85rem;
+            left: 50%;
+            width: 6.5rem;
+            height: 1.7rem;
+            transform: translateX(-50%) rotate(-2deg);
+            background: rgba(230, 207, 168, 0.55);
+            border-left: 1px dashed rgba(123, 102, 80, 0.28);
+            border-right: 1px dashed rgba(123, 102, 80, 0.28);
+            box-shadow: 0 2px 6px rgba(36, 29, 24, 0.08);
+        }
+        @media (max-width: 640px) {
+            .letter { transform: none; }
+            .letter::before { left: 1.5rem; }
+        }
+
+        /* Доступность: видимый фокус для клавиатуры на всём кликабельном. */
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible,
+        input:focus-visible {
+            outline: 3px solid rgba(179, 38, 47, 0.55);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+        a, summary { cursor: pointer; }
+
+        /* Мобильная навигация: до этого ниже 768px ссылок не было вообще. */
+        .nav-burger {
+            width: 2.75rem;
+            height: 2.75rem;
+            display: grid;
+            place-content: center;
+            gap: 5px;
+            padding: 0;
+            background: rgba(255,255,255,0.55);
+            border: 1px solid rgba(123,102,80,0.2);
+            border-radius: 0.75rem;
+        }
+        .nav-burger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: #241D18;
+            transition: transform 0.3s, opacity 0.2s;
+        }
+        .nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-nav {
+            display: grid;
+            grid-template-rows: 0fr;
+            border-top: 1px solid transparent;
+            transition: grid-template-rows 0.35s ease, border-color 0.35s ease;
+        }
+        .mobile-nav.open {
+            grid-template-rows: 1fr;
+            border-top-color: rgba(123,102,80,0.15);
+        }
+        .mobile-nav-inner {
+            min-height: 0;
+            overflow: hidden;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .mobile-nav-inner a {
+            display: block;
+            padding: 0 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #7B6650;
+            line-height: 3.1;
+            border-bottom: 1px solid rgba(123,102,80,0.08);
+            transition: color 0.2s, background 0.2s;
+        }
+        .mobile-nav-inner a:last-child { border-bottom: 0; }
+        .mobile-nav-inner a:hover,
+        .mobile-nav-inner a:focus-visible { color: #241D18; background: rgba(123,102,80,0.06); }
+
+        @media (min-width: 768px) {
+            .nav-burger, .mobile-nav { display: none !important; }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-b from-home-cream via-home-cream to-white text-home-dark font-sans antialiased selection:bg-spanish-red selection:text-white overflow-x-hidden">
-
-    <div id="anniversaryGate" class="anniversary-gate" aria-modal="true" role="dialog" aria-labelledby="anniversaryTitle">
-        <div id="anniversaryCard" class="anniversary-card text-center">
-            <div class="anniversary-lock">I</div>
-            <p class="text-sm uppercase tracking-widest text-spanish-red font-bold">Первая годовщина</p>
-            <h2 id="anniversaryTitle" class="font-serif text-4xl font-bold mt-3 text-home-dark">Видео-открытка</h2>
-
-            <div class="anniversary-locked-copy">
-                <p class="text-gray-600 mt-5 leading-relaxed">
-                    Эта открытка откроется 09.06.2026. До этого момента внутри ничего не видно.
-                </p>
-                <button id="anniversaryOpenButton" class="anniversary-button mt-8" type="button" disabled>
-                    Открыть 09.06.2026
-                </button>
-                <button id="anniversarySkipButton" class="anniversary-button anniversary-button-secondary mt-4" type="button">
-                    Перейти к атласу
-                </button>
-            </div>
-
-            <div class="anniversary-video-wrap mt-8">
-                <p class="font-serif text-2xl text-home-dark">Открытка готова.</p>
-                <p class="text-gray-600 mt-4 leading-relaxed">
-                    Видео хранится отдельно, чтобы сайт быстро открывался и спокойно загружался на Vercel.
-                </p>
-                <a id="anniversaryVideoLink" class="anniversary-link" href="https://disk.yandex.ru/i/jPf6tljMl809vg" target="_blank" rel="noopener">
-                    Открыть видео на Яндекс Диске
-                </a>
-            </div>
-
-            <div class="anniversary-note mt-8 text-left">
-                <p class="font-serif text-2xl text-home-dark">С первой годовщиной нас.</p>
-                <p class="text-gray-600 mt-4 leading-relaxed">
-                    Это маленькая видео-открытка про наш дом, нашу память и первый год, который стал началом
-                    чего-то очень тёплого. Спасибо тебе за нежность, за рядом, за смех, за вечера, которые хочется
-                    хранить как главы в нашем семейном атласе.
-                </p>
-                <p class="text-gray-600 mt-4 leading-relaxed">
-                    Пусть дальше у нас будет ещё много стран, ужинов, маршрутов и простых счастливых дней,
-                    где главное путешествие — это мы.
-                </p>
-                <button id="anniversaryCloseButton" class="anniversary-button mt-6" type="button">
-                    Перейти к атласу
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="siteContent">
+    <div id="top">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-header transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-serif font-bold text-2xl tracking-tight text-home-dark">НАШ ДОМ</div>
-            <div class="hidden md:flex items-center gap-8">
+            <a href="#top" class="font-serif font-bold text-2xl tracking-tight text-home-dark">НАШ ДОМ</a>
+
+            <div class="hidden md:flex items-center gap-6 site-nav-links">
                 <a href="#about" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Традиция</a>
                 <a href="#atlas" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Карта</a>
                 <a href="#archive" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Архив</a>
+                <a href="#team" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Экипаж</a>
                 <a href="#gallery" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Моменты</a>
                 <a href="#tradition" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Ритм</a>
-                <a href="#menu" class="text-sm font-medium text-spanish-red hover:text-wine-red transition-colors">Меню</a>
+                <a href="#postcard" class="text-sm font-medium text-home-brown hover:text-home-dark transition-colors">Открытка</a>
+                <a href="merch.html" class="text-sm font-medium text-spanish-red hover:text-wine-red transition-colors">Мерч</a>
+            </div>
+
+            <button id="navToggle" class="nav-burger" type="button"
+                    aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <div id="mobileNav" class="mobile-nav">
+            <div class="mobile-nav-inner">
+                <a href="#about">Традиция</a>
+                <a href="#atlas">Карта</a>
+                <a href="#archive">Архив</a>
+                <a href="#team">Экипаж</a>
+                <a href="#gallery">Моменты</a>
+                <a href="#tradition">Ритм</a>
+                <a href="#postcard">Открытка</a>
+                <a href="merch.html" class="text-spanish-red">Мерч</a>
             </div>
         </div>
     </nav>
@@ -974,18 +1190,23 @@
                 </h1>
                 
                 <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
-                    Семейная традиция кухни мира: мы выбираем страну, готовим её вечер и сохраняем историю на карте, чтобы каждая глава оставалась с нами.
+                    Раз в неделю мы выбираем страну, готовим её вечер и оставляем на карте ещё одну отметку.
+                    Это наш способ никуда не уезжать — и всё равно объехать весь мир.
                 </p>
-                
+
+                <p class="handwritten handwritten-lg handwritten-red margin-note max-w-lg">
+                    Здесь всё про нас двоих. Пролистай до самого конца — там я кое-что написал.
+                </p>
+
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <button onclick="document.getElementById('atlas').scrollIntoView({behavior: 'smooth'})" 
+                    <a href="#atlas"
                         class="px-8 py-4 bg-home-dark text-white font-medium rounded-full hover:bg-spanish-red transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                         Открыть карту
-                    </button>
-                    <button onclick="document.getElementById('archive').scrollIntoView({behavior: 'smooth'})" 
+                    </a>
+                    <a href="#archive"
                         class="px-8 py-4 bg-white text-home-dark font-medium rounded-full border-2 border-home-brown hover:border-spanish-red hover:text-spanish-red transition-all duration-300">
                         История недель
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -994,16 +1215,17 @@
                 <div class="relative overflow-visible h-[460px] sm:h-[520px] lg:h-[620px]">
                     <div class="absolute -inset-6 bg-gradient-to-r from-spanish-red/20 to-spanish-gold/20 rounded-3xl blur-2xl"></div>
                     <div class="relative w-full h-full rounded-2xl shadow-2xl overflow-hidden bg-home-cream/10">
-                        <img src="images/hero-couple.jpg"
+                        <img fetchpriority="high" decoding="async" src="images/hero-couple.jpg"
                              alt="Наша команда"
                              class="w-full h-full object-cover object-center transform rotate-1 hover:rotate-0 transition-transform duration-500">
                     </div>
                     
                     <!-- Info card on hero photo -->
                     <div class="absolute bottom-5 left-1/2 -translate-x-1/2 sm:bottom-6 sm:left-6 sm:translate-x-0 bg-white/90 backdrop-blur-md border border-home-warm/25 px-5 py-4 rounded-2xl shadow-xl animate-float max-w-[18.5rem]">
-                        <p class="font-serif text-base sm:text-lg font-bold text-home-dark leading-snug">
-                            Дом становится портом отправления.
+                        <p class="handwritten handwritten-md text-home-dark">
+                            Наш дом — это порт отправления.
                         </p>
+                        <p class="text-xs uppercase tracking-widest text-home-brown mt-2">Отсюда начинается всё</p>
                     </div>
                 </div>
             </div>
@@ -1034,41 +1256,41 @@
                     </g>
                 </svg>
 
-                <article class="map-pin current archive-card map-chapter-card p-6">
+                <article class="map-pin pin-1 archive-card map-chapter-card p-6">
                     <div class="flex items-start justify-between gap-4 mb-5">
                         <span class="week-number">I</span>
                         <span class="passport-stamp">Visited</span>
                     </div>
                     <div class="chapter-photo">
-                        <img src="images/spanish-food.jpg" alt="Испанский стол недели I">
+                        <img loading="lazy" decoding="async" src="images/spanish-food.jpg" alt="Испанский стол недели I">
                         <span class="chapter-photo-label">Еда вечера</span>
                     </div>
                     <h3 class="font-serif text-3xl font-bold text-home-dark">Испания</h3>
-                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Текущая глава</p>
+                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Посещённая глава</p>
                     <p class="text-gray-600 mt-4 leading-relaxed">Гаспачо, тапас, оливки и портвейн. Первый маршрут, с которого начинается семейный атлас.</p>
                 </article>
 
-                <article class="map-pin next archive-card map-chapter-card p-6">
+                <article class="map-pin pin-2 archive-card map-chapter-card p-6">
                     <div class="flex items-start justify-between gap-4 mb-5">
                         <span class="week-number">II</span>
-                        <span class="passport-stamp">Visited</span>
+                        <span class="passport-stamp">Now</span>
                     </div>
                     <div class="chapter-photo">
-                        <img src="images/greek-week-generated.png" alt="Греческий вечер недели II">
+                        <img loading="lazy" decoding="async" src="images/greek-week-generated.png" alt="Греческий вечер недели II">
                         <span class="chapter-photo-label">Греческий вечер</span>
                     </div>
                     <h3 class="font-serif text-3xl font-bold text-home-dark">Греция</h3>
-                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Посещённая глава</p>
+                    <p class="text-sm uppercase tracking-widest text-spanish-red font-semibold mt-1">Текущая глава</p>
                     <p class="text-gray-600 mt-4 leading-relaxed">Гирос, греческий салат и вино. Вторая отметка уже на карте и хранится в семейной хронике.</p>
                 </article>
 
-                <article class="map-pin future archive-card map-chapter-card p-6">
+                <article class="map-pin pin-3 archive-card map-chapter-card p-6">
                     <div class="flex items-start justify-between gap-4 mb-5">
                         <span class="week-number">III</span>
                         <span class="passport-stamp text-olive">Soon</span>
                     </div>
                     <div class="chapter-photo">
-                        <img src="images/family-atlas-generated.png" alt="Будущая глава семейного атласа">
+                        <img loading="lazy" decoding="async" src="images/family-atlas-generated.png" alt="Будущая глава семейного атласа">
                         <span class="chapter-photo-label">Скоро</span>
                     </div>
                     <h3 class="font-serif text-3xl font-bold text-home-dark">Новый анонс</h3>
@@ -1115,6 +1337,9 @@
                     <h2 class="font-serif text-4xl font-bold mt-3 text-home-dark">История прошлых недель</h2>
                     <p class="text-gray-600 mt-4 leading-relaxed">
                         Здесь будет накапливаться семейная хроника: номер недели римской цифрой, страна, блюда и короткая заметка.
+                    </p>
+                    <p class="handwritten handwritten-lg margin-note mt-5">
+                        Однажды тут будет так много глав, что придётся листать.
                     </p>
                 </div>
                 <div class="passport-stamp">Family Atlas</div>
@@ -1176,39 +1401,42 @@
             <div class="text-center mb-16">
                 <span class="text-spanish-red font-semibold tracking-widest uppercase text-sm">Экипаж дома</span>
                 <h2 class="font-serif text-4xl font-bold mt-3 text-home-dark">Люди, которые делают маршрут живым</h2>
+                <p class="handwritten handwritten-lg handwritten-red mt-4">
+                    Экипаж маленький, зато свой.
+                </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Photo 1 - Chef -->
                 <div class="photo-polaroid group">
-                    <img src="images/chef-kitchen.jpg" 
+                    <img loading="lazy" decoding="async" src="images/chef-kitchen.jpg" 
                          alt="Шеф-повар" 
                          class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
-                    <p class="text-center font-serif mt-4 photo-note">Капитан кухни</p>
+                    <p class="text-center mt-4 photo-note handwritten handwritten-md">Капитан кухни</p>
                 </div>
 
                 <!-- Photo 2 - Woman in orange -->
                 <div class="photo-polaroid group lg:-mt-8">
-                    <img src="images/woman-orange.jpg" 
+                    <img loading="lazy" decoding="async" src="images/woman-orange.jpg" 
                          alt="Хозяйка вечера" 
                          class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
-                    <p class="text-center font-serif mt-4 photo-note">Хранительница атмосферы</p>
+                    <p class="text-center mt-4 photo-note handwritten handwritten-md">Хранительница атмосферы</p>
                 </div>
 
                 <!-- Photo 3 - Flower crown -->
                 <div class="photo-polaroid group">
-                    <img src="images/flower-crown.jpg" 
+                    <img loading="lazy" decoding="async" src="images/flower-crown.jpg" 
                          alt="Душа компании" 
                          class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
-                    <p class="text-center font-serif mt-4 photo-note">Праздничный компас</p>
+                    <p class="text-center mt-4 photo-note handwritten handwritten-md">Праздничный компас</p>
                 </div>
 
                 <!-- Photo 4 - Couple (center) -->
                 <div class="photo-polaroid group sm:col-span-2 lg:col-span-2 lg:-mt-8">
-                    <img src="images/couple-romantic.jpg" 
+                    <img loading="lazy" decoding="async" src="images/couple-romantic.jpg" 
                          alt="Наша команда" 
                          class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-[1.03]">
-                    <p class="text-center font-serif mt-4 photo-note">Главные путешественники</p>
+                    <p class="text-center mt-4 photo-note handwritten handwritten-md">Главные путешественники</p>
                 </div>
             </div>
         </div>
@@ -1238,21 +1466,21 @@
 
                     <div class="grid md:grid-cols-3 gap-6 mb-8">
                         <div class="memory-frame">
-                            <img src="images/spanish-food.jpg" alt="Испанские блюда на столе" class="w-full h-80 object-cover">
+                            <img loading="lazy" decoding="async" src="images/spanish-food.jpg" alt="Испанские блюда на столе" class="w-full h-80 object-cover">
                             <div class="memory-caption">
                                 <p class="font-serif text-xl font-bold">Испанский стол</p>
                                 <p class="text-sm text-white/80">Гаспачо, тапас и оливки</p>
                             </div>
                         </div>
                         <div class="memory-frame">
-                            <img src="images/port-wine.jpg" alt="Вино для испанского вечера" class="w-full h-80 object-cover">
+                            <img loading="lazy" decoding="async" src="images/port-wine.jpg" alt="Вино для испанского вечера" class="w-full h-80 object-cover">
                             <div class="memory-caption">
                                 <p class="font-serif text-xl font-bold">Вкус вечера</p>
                                 <p class="text-sm text-white/80">Портвейн и медленный финал</p>
                             </div>
                         </div>
                         <div class="memory-frame">
-                            <img src="images/couple-romantic.jpg" alt="Главные путешественники" class="w-full h-80 object-cover">
+                            <img loading="lazy" decoding="async" src="images/couple-romantic.jpg" alt="Главные путешественники" class="w-full h-80 object-cover">
                             <div class="memory-caption">
                                 <p class="font-serif text-xl font-bold">Наш экипаж</p>
                                 <p class="text-sm text-white/80">Те, ради кого карта растёт</p>
@@ -1262,8 +1490,10 @@
 
                     <div class="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-home-cream/30 via-home-cream/10 to-spanish-red/10 border border-home-warm/20 transition-transform duration-300 hover:-translate-y-1">
                         <div class="bg-black" style="aspect-ratio: 16 / 9;">
-                            <video controls playsinline preload="metadata" class="w-full h-full object-cover bg-black" src="videos/img-6601.mov">
-                                Ваш браузер не поддерживает видео.
+                            <video controls playsinline preload="metadata" poster="images/spanish-food.jpg"
+                                   class="w-full h-full object-cover bg-black" src="videos/img-6601.mov">
+                                Браузер не смог открыть это видео.
+                                <a href="videos/img-6601.mov" class="underline">Скачать файл</a>
                             </video>
                         </div>
                         <div class="py-4 text-center font-serif text-home-brown bg-white">
@@ -1284,14 +1514,14 @@
 
                     <div class="grid md:grid-cols-3 gap-6 mb-8">
                         <div class="memory-frame md:col-span-2">
-                            <img src="images/greek-week-generated.png" alt="Греческий вечер и еда недели II" class="w-full h-80 object-cover">
+                            <img loading="lazy" decoding="async" src="images/greek-week-generated.png" alt="Греческий вечер и еда недели II" class="w-full h-80 object-cover">
                             <div class="memory-caption">
                                 <p class="font-serif text-xl font-bold">Греческий вечер</p>
                                 <p class="text-sm text-white/80">Еда, карта и домашний свет</p>
                             </div>
                         </div>
                         <div class="memory-frame">
-                            <img src="images/family-atlas-generated.png" alt="Вечер за картой семейного атласа" class="w-full h-80 object-cover">
+                            <img loading="lazy" decoding="async" src="images/family-atlas-generated.png" alt="Вечер за картой семейного атласа" class="w-full h-80 object-cover">
                             <div class="memory-caption">
                                 <p class="font-serif text-xl font-bold">Глава II</p>
                                 <p class="text-sm text-white/80">Вторая точка маршрута</p>
@@ -1301,8 +1531,10 @@
 
                     <div class="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-home-cream/30 via-home-cream/10 to-spanish-red/10 border border-home-warm/20 transition-transform duration-300 hover:-translate-y-1">
                         <div class="bg-black" style="aspect-ratio: 16 / 9;">
-                            <video controls playsinline preload="metadata" class="w-full h-full object-cover bg-black" src="videos/img-6603.mov">
-                                Ваш браузер не поддерживает видео.
+                            <video controls playsinline preload="metadata" poster="images/greek-week-generated.png"
+                                   class="w-full h-full object-cover bg-black" src="videos/img-6603.mov">
+                                Браузер не смог открыть это видео.
+                                <a href="videos/img-6603.mov" class="underline">Скачать файл</a>
                             </video>
                         </div>
                         <div class="py-4 text-center font-serif text-home-brown bg-white">
@@ -1336,14 +1568,46 @@
             </p>
             
             <div class="inline-block">
-                <button onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})" 
+                <a href="#menu"
                     class="group relative px-10 py-5 text-white font-serif text-lg rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-4 bg-spanish-red hover:bg-wine-red">
-                    <span>Перейти к анонсу</span>
-                    <svg class="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span>Что дальше</span>
+                    <svg class="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
-                </button>
-                <p class="mt-4 text-sm text-gray-400 uppercase tracking-widest">Следующий анонс скоро</p>
+                </a>
+                <p class="handwritten handwritten-md handwritten-warm mt-5">Куда отправимся на следующей неделе?</p>
+            </div>
+        </div>
+    </section>
+    <!-- Postcard Section -->
+    <section id="postcard" class="py-24 bg-white relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="postcard-panel p-8 lg:p-12">
+                <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+                    <div>
+                        <span class="passport-stamp">Anniversary</span>
+                        <h2 class="font-serif text-4xl lg:text-5xl font-bold text-home-dark mt-8">Наша видео-открытка</h2>
+                        <p class="text-gray-600 mt-5 text-lg leading-relaxed">
+                            Отдельная глава — для того момента, когда хочется вернуться к первому году,
+                            тёплым словам и маленькому домашнему фильму про нас.
+                        </p>
+                        <p class="handwritten handwritten-lg margin-note mt-5">
+                            Включи, когда будет настроение.
+                        </p>
+                        <div class="flex flex-wrap gap-4 mt-8">
+                            <a class="anniversary-link" href="https://disk.yandex.ru/i/jPf6tljMl809vg" target="_blank" rel="noopener">Открыть видео</a>
+                            <a class="anniversary-button anniversary-button-secondary" href="merch.html">Смотреть мерч</a>
+                        </div>
+                    </div>
+                    <div class="archive-card p-6">
+                        <span class="week-number">I</span>
+                        <h3 class="font-serif text-3xl font-bold text-home-dark mt-6">Первая годовщина</h3>
+                        <p class="text-gray-600 mt-4 leading-relaxed">
+                            Маленькая видео-глава про наш дом, память и первый год, который стал началом чего-то очень тёплого.
+                        </p>
+                        <p class="handwritten handwritten-md handwritten-red mt-6">С этого всё и началось</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1352,9 +1616,9 @@
     <section id="menu" class="py-24 bg-home-cream relative">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="font-semibold tracking-widest uppercase text-sm text-spanish-red">Следующая глава</span>
-                <h2 class="font-serif text-5xl font-bold mt-3 text-home-dark">Скоро будет анонс</h2>
-                <p class="text-gray-600 mt-2">Ты напишешь страну и блюда, а я добавлю их в меню, карту и архив.</p>
+                <span class="font-semibold tracking-widest uppercase text-sm text-spanish-red">Новая глава</span>
+                <h2 class="font-serif text-5xl font-bold mt-3 text-home-dark">У нас появился мерч</h2>
+                <p class="text-gray-600 mt-2">Две футболки про спокойствие, хаос и красную линию, которая всё объясняет.</p>
                 <div class="mx-auto mt-6 h-1 bg-spanish-red" style="width: 96px;"></div>
             </div>
 
@@ -1362,41 +1626,26 @@
                 <div class="announcement-orbit"></div>
                 <div class="relative z-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
                     <div>
-                        <span class="passport-stamp">Coming Soon</span>
-                        <h3 class="font-serif text-4xl lg:text-5xl font-bold text-home-dark mt-8">Меню следующего путешествия</h3>
+                        <span class="passport-stamp">Merch Drop</span>
+                        <h3 class="font-serif text-4xl lg:text-5xl font-bold text-home-dark mt-8">Футболки «calm / chaos»</h3>
                         <p class="text-gray-600 mt-5 text-lg leading-relaxed">
-                            Этот блок специально оставлен как место для будущего анонса. Когда появятся страна,
-                            блюда, напитки и настроение вечера, мы превратим его в полноценную главу.
+                            Это не просто сувенир, а маленькая парная история на ткани: белая футболка со спокойствием,
+                            чёрная — с хаосом, красной нитью и сердцами ручной вышивки.
                         </p>
-                        <div class="memory-frame mt-8 max-w-lg">
-                            <img src="images/family-atlas-generated.png" alt="Атмосферная обложка семейного атласа кухни мира" class="w-full h-80 object-cover">
-                            <div class="memory-caption">
-                                <p class="font-serif text-xl font-bold">Будущая глава</p>
-                                <p class="text-sm text-white/80">Обложка для нового маршрута</p>
-                            </div>
+                        <div class="flex flex-wrap gap-4 mt-8">
+                            <a href="merch.html" class="px-8 py-4 bg-home-dark text-white font-medium rounded-full hover:bg-spanish-red transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">Смотреть мерч</a>
+                            <a href="#postcard" class="px-8 py-4 bg-white text-home-dark font-medium rounded-full border-2 border-home-brown hover:border-spanish-red hover:text-spanish-red transition-all duration-300">Видео-открытка</a>
                         </div>
                     </div>
 
-                    <div class="grid gap-4">
-                        <div class="archive-card p-5 flex items-center gap-4">
-                            <span class="week-number animate-pulse-soft">III</span>
-                            <div>
-                                <p class="text-sm uppercase tracking-widest text-spanish-red font-bold">Страна</p>
-                                <p class="text-gray-500">Добавим после твоего сообщения</p>
-                            </div>
+                    <div class="product-rail">
+                        <div class="product-shot">
+                            <img loading="lazy" decoding="async" src="images/merch-white-detail.png" alt="Белая футболка с красной линией и вышивкой">
+                            <div class="product-label font-serif text-xl">I’m his calm</div>
                         </div>
-                        <div class="archive-card p-5">
-                            <p class="text-sm uppercase tracking-widest text-home-brown font-bold mb-3">Что будет в меню</p>
-                            <div class="grid sm:grid-cols-2 gap-3 text-gray-500">
-                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Основное блюдо</span>
-                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Закуски</span>
-                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Напитки</span>
-                                <span class="rounded-full border border-home-brown/15 px-4 py-3 bg-white/60">Заметка вечера</span>
-                            </div>
-                        </div>
-                        <div class="archive-card p-5 border-dashed">
-                            <p class="text-sm uppercase tracking-widest text-olive font-bold">Статус</p>
-                            <p class="font-serif text-2xl text-home-dark mt-2">Ждём новый маршрут</p>
+                        <div class="product-shot">
+                            <img loading="lazy" decoding="async" src="images/merch-black-fit.png" alt="Чёрная футболка She's my chaos">
+                            <div class="product-label font-serif text-xl">She’s my chaos</div>
                         </div>
                     </div>
                 </div>
@@ -1404,48 +1653,62 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-home-dark text-white py-16">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <h3 class="font-serif text-2xl font-bold mb-4">НАШ ДОМ</h3>
-                    <p class="text-gray-400">Здесь начинаются традиции</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4 text-home-warm">Навигация</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#about" class="hover:text-spanish-red transition-colors">Традиция</a></li>
-                        <li><a href="#atlas" class="hover:text-spanish-red transition-colors">Карта</a></li>
-                        <li><a href="#archive" class="hover:text-spanish-red transition-colors">Архив</a></li>
-                        <li><a href="#team" class="hover:text-spanish-red transition-colors">Команда</a></li>
-                        <li><a href="#gallery" class="hover:text-spanish-red transition-colors">Моменты</a></li>
-                        <li><a href="#tradition" class="hover:text-spanish-red transition-colors">Ритм</a></li>
-                        <li><a href="#menu" class="hover:text-spanish-red transition-colors">Меню</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4 text-home-warm">Следующее путешествие</h4>
-                    <p class="text-gray-400">Новая страна</p>
-                    <p class="text-sm text-gray-500 mt-2">Скоро будет анонс</p>
-                </div>
+    <!-- Dedication — финальная глава, ради которой всё остальное -->
+    <section id="dedication" class="py-24 bg-home-cream dotted-pattern">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="chapter-divider mb-12" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21s-7.5-4.9-9.6-9.3C.7 8.3 2.6 4.8 6 4.2c2.2-.4 4.3.7 5.4 2.5.2.3.7.3.9 0C13.4 4.9 15.5 3.8 17.7 4.2c3.4.6 5.3 4.1 3.9 7.5C19.5 16.1 12 21 12 21Z"/>
+                </svg>
             </div>
-            
-            <div class="border-t border-white/10 pt-8 text-center text-gray-500">
-                <p>© 2026 Наша Команда. Все права защищены.</p>
-                <p class="text-sm mt-2">Сделано с любовью</p>
 
-                <div class="mt-8 max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md">
-                    <p class="font-serif text-lg text-home-warm leading-relaxed">
-                        Ничего бы не было, если бы не ты. Софья.
-                    </p>
-                    <p class="text-gray-300 mt-2">
+            <div class="text-center mb-10">
+                <span class="passport-stamp">Final stamp</span>
+            </div>
+
+            <article class="letter p-8 sm:p-12 sm:pl-16">
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-home-dark leading-snug">
+                    Ничего бы не было,<br>если бы не ты. Софья.
+                </h2>
+
+                <div class="handwritten handwritten-lg mt-8 space-y-5">
+                    <p>
                         Этот сайт — идея для нашего свидания: давай сделаем этот вечер особенным.
                     </p>
-                    <p class="text-gray-400 text-sm mt-3">
+                    <p>
                         Спасибо тебе за вдохновение и за то, что ты рядом.
                     </p>
                 </div>
+            </article>
+
+            <p class="text-center text-home-brown mt-10 text-sm uppercase tracking-widest">
+                Продолжение следует
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-home-dark text-white py-14">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h3 class="font-serif text-2xl font-bold">НАШ ДОМ</h3>
+            <p class="handwritten handwritten-md handwritten-warm mt-2">Здесь начинаются традиции</p>
+
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 text-sm text-gray-400">
+                <a href="#atlas" class="hover:text-spanish-red transition-colors">Карта</a>
+                <a href="#archive" class="hover:text-spanish-red transition-colors">Архив</a>
+                <a href="#team" class="hover:text-spanish-red transition-colors">Экипаж</a>
+                <a href="#gallery" class="hover:text-spanish-red transition-colors">Моменты</a>
+                <a href="#postcard" class="hover:text-spanish-red transition-colors">Открытка</a>
+                <a href="merch.html" class="hover:text-spanish-red transition-colors">Мерч</a>
+            </nav>
+
+            <div class="border-t border-white/10 mt-10 pt-8 text-gray-400 text-sm">
+                <p>Сделано дома, вручную, для одного человека.</p>
+                <p class="mt-3">
+                    <button type="button" id="logout" class="text-gray-400 hover:text-spanish-red transition-colors underline bg-transparent border-0 p-0">
+                        Выйти с этого устройства
+                    </button>
+                </p>
             </div>
         </div>
     </footer>
@@ -1454,47 +1717,6 @@
 
     <script>
         const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-        const setupAnniversaryGate = () => {
-            const gate = document.getElementById('anniversaryGate');
-            const card = document.getElementById('anniversaryCard');
-            const openButton = document.getElementById('anniversaryOpenButton');
-            const skipButton = document.getElementById('anniversarySkipButton');
-            const closeButton = document.getElementById('anniversaryCloseButton');
-
-            if (!gate || !card || !openButton || !skipButton || !closeButton) return;
-
-            const params = new URLSearchParams(window.location.search);
-            const previewUnlocked = params.get('anniversary') === 'preview';
-            const today = new Date();
-            const unlockDate = new Date(2026, 5, 9, 0, 0, 0);
-            const isUnlocked = previewUnlocked || today >= unlockDate;
-
-            gate.classList.add('show');
-            document.body.classList.add('overflow-hidden');
-
-            if (isUnlocked) {
-                openButton.disabled = false;
-                openButton.textContent = 'Открыть открытку';
-            }
-
-            openButton.addEventListener('click', () => {
-                if (!isUnlocked) return;
-                card.classList.add('unlocked');
-            });
-
-            skipButton.addEventListener('click', () => {
-                gate.classList.remove('show');
-                document.body.classList.remove('overflow-hidden');
-            });
-
-            closeButton.addEventListener('click', () => {
-                gate.classList.remove('show');
-                document.body.classList.remove('overflow-hidden');
-            });
-        };
-
-        setupAnniversaryGate();
 
         const updateRoutePlane = () => {
             const atlas = document.getElementById('atlas');
@@ -1536,6 +1758,38 @@
             } else {
                 nav.classList.remove('shadow-md');
             }
+        }, { passive: true });
+
+        // Мобильное меню
+        const navToggle = document.getElementById('navToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        const setMobileNav = (open) => {
+            mobileNav.classList.toggle('open', open);
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+        };
+
+        navToggle.addEventListener('click', () => {
+            setMobileNav(!mobileNav.classList.contains('open'));
+        });
+
+        // Закрываем после перехода по ссылке и по Escape.
+        mobileNav.addEventListener('click', (event) => {
+            if (event.target.closest('a')) setMobileNav(false);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mobileNav.classList.contains('open')) {
+                setMobileNav(false);
+                navToggle.focus();
+            }
+        });
+
+        // Выход: гасим куку на сервере и возвращаем на паспортный контроль.
+        document.getElementById('logout')?.addEventListener('click', async () => {
+            await fetch('/api/logout', { method: 'POST' }).catch(() => {});
+            window.location.href = '/login.html';
         });
 
         // Smooth reveal on scroll
@@ -1559,3 +1813,8 @@
     </script>
 </body>
 </html>
+
+
+
+
+

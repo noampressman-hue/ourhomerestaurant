@@ -1,0 +1,8 @@
+{
+  "name": "nash-dom-website",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@vercel/edge": "^1.2.2"
+  }
+}

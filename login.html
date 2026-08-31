@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Паспортный контроль — Наш дом</title>
+<style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        background: #241D18;
+        color: #FAF6EE;
+        font-family: "Segoe UI", Arial, sans-serif;
+        overflow-x: hidden;
+    }
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(circle at 15% 20%, rgba(179,38,47,0.28), transparent 45%),
+            radial-gradient(circle at 85% 80%, rgba(201,151,43,0.22), transparent 45%);
+        pointer-events: none;
+    }
+
+    .booth {
+        position: relative;
+        width: min(30rem, 100%);
+        padding: 2.75rem 2.25rem 2.25rem;
+        background: rgba(250,246,238,0.04);
+        border: 1px solid rgba(230,207,168,0.22);
+        border-radius: 1.5rem;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+        animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    .eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #B3262F;
+        font-weight: 700;
+        margin: 0;
+    }
+    .title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.9rem, 6vw, 2.5rem);
+        line-height: 1.15;
+        margin: 0.75rem 0 0;
+        font-weight: 700;
+    }
+    .subtitle {
+        margin: 0.9rem 0 0;
+        color: rgba(250,246,238,0.62);
+        line-height: 1.6;
+        font-size: 0.96rem;
+    }
+
+    .stamp {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.4rem;
+        padding: 0.45rem 0.9rem;
+        border: 2px solid rgba(179,38,47,0.55);
+        border-radius: 0.5rem;
+        color: #B3262F;
+        font-size: 0.66rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 800;
+        transform: rotate(-8deg);
+    }
+
+    form { margin-top: 2rem; }
+    label {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(230,207,168,0.85);
+        margin-bottom: 0.6rem;
+        font-weight: 600;
+    }
+    .field { position: relative; }
+    input {
+        width: 100%;
+        padding: 1rem 3.2rem 1rem 1.1rem;
+        font-size: 1.05rem;
+        font-family: inherit;
+        letter-spacing: 0.14em;
+        color: #FAF6EE;
+        background: rgba(0,0,0,0.28);
+        border: 1px solid rgba(230,207,168,0.28);
+        border-radius: 0.85rem;
+        transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    input:focus {
+        outline: none;
+        border-color: #B3262F;
+        box-shadow: 0 0 0 4px rgba(179,38,47,0.18);
+    }
+    .reveal {
+        position: absolute;
+        top: 50%;
+        right: 0.55rem;
+        transform: translateY(-50%);
+        width: 2.4rem;
+        height: 2.4rem;
+        display: grid;
+        place-items: center;
+        background: none;
+        border: 0;
+        border-radius: 50%;
+        color: rgba(250,246,238,0.5);
+        cursor: pointer;
+        transition: color 0.2s, background 0.2s;
+    }
+    .reveal:hover { color: #E6CFA8; background: rgba(230,207,168,0.1); }
+
+    button[type="submit"] {
+        width: 100%;
+        margin-top: 1.1rem;
+        padding: 1rem 1.5rem;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.05rem;
+        color: #FAF6EE;
+        background: #B3262F;
+        border: 0;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    button[type="submit"]:hover:not(:disabled) {
+        background: #6E2430;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(179,38,47,0.32);
+    }
+    button[type="submit"]:disabled { opacity: 0.6; cursor: progress; }
+
+    .message {
+        min-height: 1.4rem;
+        margin: 0.9rem 0 0;
+        font-size: 0.9rem;
+        text-align: center;
+        color: #E68A8A;
+        opacity: 0;
+        transition: opacity 0.25s;
+    }
+    .message.visible { opacity: 1; }
+    .booth.denied { animation: shake 0.45s; }
+    @keyframes shake {
+        20% { transform: translateX(-9px); }
+        45% { transform: translateX(8px); }
+        70% { transform: translateX(-5px); }
+        100% { transform: none; }
+    }
+
+    .footnote {
+        margin: 1.75rem 0 0;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(230,207,168,0.14);
+        font-size: 0.8rem;
+        color: rgba(250,246,238,0.4);
+        text-align: center;
+        font-family: Georgia, "Times New Roman", serif;
+        font-style: italic;
+    }
+
+    /* Штамп «допуск разрешён» — печатается поверх экрана после верного кода. */
+    .granted {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(36,29,24,0.92);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 10;
+    }
+    .granted.show { opacity: 1; }
+    .granted-stamp {
+        padding: 1.5rem 2.5rem;
+        border: 5px solid #61714B;
+        border-radius: 0.75rem;
+        color: #61714B;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.5rem, 7vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transform: rotate(-12deg) scale(2.4);
+        opacity: 0;
+    }
+    .granted.show .granted-stamp { animation: press 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards; }
+    @keyframes press {
+        to { transform: rotate(-12deg) scale(1); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .granted-stamp { opacity: 1; transform: rotate(-12deg); }
+    }
+</style>
+</head>
+<body>
+    <main class="booth" id="booth">
+        <span class="stamp">Passport control</span>
+
+        <p class="eyebrow">Наш дом</p>
+        <h1 class="title">Паспортный<br>контроль</h1>
+        <p class="subtitle">
+            Дальше — семейный атлас: карта маршрута, архив недель и наши фотографии.
+            Вход только по коду, который знают свои.
+        </p>
+
+        <form id="form" novalidate>
+            <label for="password">Код доступа</label>
+            <div class="field">
+                <input id="password" name="password" type="password" autocomplete="current-password"
+                       autofocus required spellcheck="false" placeholder="Введите код">
+                <button class="reveal" type="button" id="reveal" aria-label="Показать код">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+            <button type="submit" id="submit">Поставить штамп</button>
+            <p class="message" id="message" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="footnote">Здесь начинаются традиции</p>
+    </main>
+
+    <div class="granted" id="granted" aria-hidden="true">
+        <div class="granted-stamp">Welcome home</div>
+    </div>
+
+<script>
+    const form = document.getElementById('form');
+    const input = document.getElementById('password');
+    const submit = document.getElementById('submit');
+    const message = document.getElementById('message');
+    const booth = document.getElementById('booth');
+    const granted = document.getElementById('granted');
+
+    document.getElementById('reveal').addEventListener('click', () => {
+        input.type = input.type === 'password' ? 'text' : 'password';
+        input.focus();
+    });
+
+    const showError = (text) => {
+        message.textContent = text;
+        message.classList.add('visible');
+        booth.classList.remove('denied');
+        void booth.offsetWidth; // перезапуск анимации
+        booth.classList.add('denied');
+        input.select();
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!input.value) {
+            showError('Введите код доступа');
+            return;
+        }
+
+        submit.disabled = true;
+        submit.textContent = 'Проверяем…';
+        message.classList.remove('visible');
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ password: input.value }),
+            });
+            const data = await response.json().catch(() => ({}));
+
+            if (response.ok && data.ok) {
+                granted.classList.add('show');
+                // Кука уже установлена — перезагружаем ровно тот адрес,
+                // на который человек изначально пришёл.
+                setTimeout(() => window.location.reload(), 900);
+                return;
+            }
+            showError(data.error || 'Неверный код');
+        } catch {
+            showError('Не получилось проверить код. Попробуйте ещё раз.');
+        }
+
+        submit.disabled = false;
+        submit.textContent = 'Поставить штамп';
+    });
+</script>
+</body>
+</html>
